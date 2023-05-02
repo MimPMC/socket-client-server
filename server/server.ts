@@ -9,7 +9,7 @@ const io = new Server<
 >();
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  socket.join('some room')
 });
 
 io.listen(3000);
