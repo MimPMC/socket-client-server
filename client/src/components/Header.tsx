@@ -8,6 +8,8 @@ import {
   Header,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { NavbarSimple } from './Sidebar';
+
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -37,6 +39,14 @@ export function HeaderSimple() {
     fontSize: "25px",
   };
 
+  const data = [
+    { link: '', label: 'Room 1', },
+    { link: '', label: 'Room 2',  },
+    { link: '', label: 'Room 3',  },
+    { link: '', label: 'Room 4',  },
+  
+  ];
+
   return (
     <Header sx={StyledHeader} height={70} mb={120}>
       <Container className={classes.header}>
@@ -52,8 +62,7 @@ export function HeaderSimple() {
           size="sm"
         />
         <Drawer opened={openedDrawer} onClose={closeDrawer}>
-          {/* Drawer content */}
-          <div>hej hej hej drawer</div>
+        <NavbarSimple data={data} />
         </Drawer>
       </Container>
     </Header>

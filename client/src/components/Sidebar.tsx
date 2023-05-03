@@ -11,6 +11,7 @@ const useStyles = createStyles((theme) => ({
 
   wrapper: {
     backgroundColor: theme.colors.orange[5],
+    height: '',
   },
 
   footer: {
@@ -84,8 +85,8 @@ const useStyles = createStyles((theme) => ({
   image: {
     position: "absolute",
     zIndex: 1,
-    top: 665, // Adjust this value to position the image
-    left: 125, // Adjust this value to position the image
+    top: 640, // Adjust this value to position the image
+    left: 180, // Adjust this value to position the image
     width: '4rem',
     height: '3rem',
   },
