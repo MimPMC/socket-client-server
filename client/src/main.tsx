@@ -1,7 +1,7 @@
 import { MantineProvider } from '@mantine/core';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, createRoutesFromElements, Route } from '../node_modules/react-router-dom/dist/index';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from '../node_modules/react-router-dom/dist/index';
 import App from './App';
 import { SocketProvider } from './context/SocketContext';
 import './index.css';
@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <MantineProvider>
     <SocketProvider>
-      <App />
+      <RouterProvider router={router} />
     </SocketProvider>
     </MantineProvider>
   </React.StrictMode>
