@@ -1,4 +1,4 @@
-import { createStyles, getStylesRef, Navbar, rem } from '@mantine/core';
+import { createStyles, getStylesRef, Navbar } from '@mantine/core';
 import { useState } from 'react';
 
 
@@ -6,7 +6,7 @@ import { useState } from 'react';
 const useStyles = createStyles((theme) => ({
     button: {
         margin: theme.spacing.sm,
-        fontSize: theme.fontSizes.md,
+        textTransform: 'uppercase',
     },
 
     wrapper: {
@@ -27,13 +27,17 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.colors.cyan[1],
+    backgroundColor: theme.colors.cyan[3],
     textDecoration: 'none',
     fontSize: theme.fontSizes.sm,
     color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
-    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    padding: `${theme.spacing.lg} ${theme.spacing.lg}`,
     borderRadius: theme.radius.xl,
     fontWeight: 500,
+    textTransform: 'uppercase',
+    margin: theme.spacing.sm,
+
+    
 
     '&:hover': {
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
