@@ -5,10 +5,8 @@ import { HeaderSimple } from "./components/Header";
 function App() {
   return (
     <>
-      <Outlet></Outlet>
-      <div>
         <HeaderSimple />
-      </div>
+      <Outlet></Outlet>
     </>
   );
 }
