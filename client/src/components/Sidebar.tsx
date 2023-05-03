@@ -1,6 +1,6 @@
 import { createStyles, getStylesRef, Navbar } from "@mantine/core";
 import { useState } from "react";
-import clip from '../assets/clip.png';
+import clippy from '../assets/clippy.png';
 
 
 const useStyles = createStyles((theme) => ({
@@ -85,8 +85,8 @@ const useStyles = createStyles((theme) => ({
     position: "absolute",
     zIndex: 1,
     top: 665, // Adjust this value to position the image
-    left: 130, // Adjust this value to position the image
-    width: '3rem',
+    left: 125, // Adjust this value to position the image
+    width: '4rem',
     height: '3rem',
   },
 
@@ -153,7 +153,7 @@ export function NavbarSimple({ data }: NavBarProps) {
           className={classes.link2}
           onClick={(event) => event.preventDefault()}
         >
-            <img src={clip} alt="Clip" className={classes.image}/>
+            <img src={clippy} alt="Clip" className={classes.image}/>
           <span className={classes.button}>Create New Room</span>
         </a>
       </Navbar.Section>
