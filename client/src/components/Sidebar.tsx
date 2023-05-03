@@ -14,9 +14,18 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.orange[5],
     [theme.fn.largerThan('md')]: {
       position: 'fixed',
-      top: 0,
+      top: 70,
       left: 0,
-      height: '100%',
+      height: 'calc(100% - 70px)',
+      width: '40vh',
+    },
+  },
+
+  linksContainer: {
+    flexGrow: 1,
+    [theme.fn.largerThan('md')]: {
+      height: 'calc(100% - 120px)',
+      overflowY: 'auto',
     },
   },
 
@@ -26,6 +35,11 @@ const useStyles = createStyles((theme) => ({
     justifyContent: "center",
     paddingTop: theme.spacing.xl,
     marginTop: theme.spacing.md,
+    [theme.fn.largerThan('md')]: {
+      position: "absolute", // Change the position to absolute
+      bottom: theme.spacing.md, // Add bottom value to position the button
+      width: '100%', // Set width to 100% for centering the content
+    },
   },
 
   link: {
@@ -91,10 +105,15 @@ const useStyles = createStyles((theme) => ({
   image: {
     position: "absolute",
     zIndex: 1,
-    top: 640, // Adjust this value to position the image
-    left: 180, // Adjust this value to position the image
+    top: 640,
+    left: 180,
     width: '4rem',
     height: '3rem',
+    [theme.fn.largerThan('md')]: {
+      position: 'absolute',
+      top: '-1rem',
+      left: '7rem', 
+    },
   },
 
   linkIcon: {
@@ -161,7 +180,7 @@ export function NavbarSimple({ data }: NavBarProps) {
         width={{ sm: 300 }}
         p="md"
       >
-        <Navbar.Section grow>{links}</Navbar.Section>
+        <Navbar.Section className={classes.linksContainer} grow>{links}</Navbar.Section>
         <Navbar.Section className={classes.footer}>
           <a
             href="#"
@@ -176,7 +195,7 @@ export function NavbarSimple({ data }: NavBarProps) {
     )}
     {isDesktop && (
       <aside className={classes.wrapper}>
-        <div style={{ height: "700px", padding: "1rem" }}>{links}</div>
+        <div className={classes.linksContainer} style={{ height: "700px", padding: "1rem" }}>{links}</div>
         <div className={classes.footer}>
           <a
             href="#"
