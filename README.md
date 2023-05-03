@@ -1,17 +1,17 @@
 # socket-client-server mimmi caisa felicia lucas
 
-
 ## Start project
 
-cd client 
+cd client
 npm i
 npm run dev
 
-cd server 
+cd server
 npm i
 npm run dev
 
 ## G krav:
+
 Krav för godkänt:
 1.Användaren får börja med att välja ett eget visningsnamn när den besöker sidan.
 2.Det ska gå att skapa ett rum (och samtidigt gå med i rummet).
