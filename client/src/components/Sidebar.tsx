@@ -1,28 +1,33 @@
+import { createStyles, getStylesRef, Navbar, rem } from '@mantine/core';
 import { useState } from 'react';
-import { createStyles, Navbar, getStylesRef, rem } from '@mantine/core';
+
+
 
 const useStyles = createStyles((theme) => ({
-  header: {
-    paddingBottom: theme.spacing.md,
-    marginBottom: `calc(${theme.spacing.md} * 1.5)`,
-    borderBottom: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
-  },
+    button: {
+        margin: theme.spacing.sm,
+        fontSize: theme.fontSizes.md,
+    },
+
+    wrapper: {
+        backgroundColor: theme.colors.orange[5],
+      },
 
   footer: {
-    paddingTop: theme.spacing.md,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: theme.spacing.xl,
     marginTop: theme.spacing.md,
-    borderTop: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
+    
   },
 
   link: {
     ...theme.fn.focusStyles(),
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: theme.colors.cyan[2],
+    justifyContent: 'center',
+    backgroundColor: theme.colors.cyan[1],
     textDecoration: 'none',
     fontSize: theme.fontSizes.sm,
     color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
@@ -39,6 +44,29 @@ const useStyles = createStyles((theme) => ({
       },
     },
   },
+
+  link2: {
+    ...theme.fn.focusStyles(),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.yellow[5],
+    textDecoration: 'none',
+    fontSize: theme.fontSizes.sm,
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.radius.xl,
+    fontWeight: 500,
+
+    '&:hover': {
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+  
+        [`& .${getStylesRef('icon')}`]: {
+          color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+        },
+      },
+},
 
   linkIcon: {
     ref: getStylesRef('icon'),
@@ -85,9 +113,15 @@ export function NavbarSimple({ data }:NavBarProps) {
   ));
 
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md">
+    <Navbar className={classes.wrapper} height={700} width={{ sm: 300 }} p="md">
       <Navbar.Section grow>
+
         {links}
+      </Navbar.Section>
+      <Navbar.Section className={classes.footer}>
+        <a href="#" className={classes.link2} onClick={(event) => event.preventDefault()}>
+          <span className={classes.button}>Create New Room</span>
+        </a>
       </Navbar.Section>
     </Navbar>
   );
