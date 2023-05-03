@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/react-bootstrap": "^0.32.32",
+    "@types/react-icons": "^3.0.0"
+  },
+  "dependencies": {
+    "@modulz/radix-icons": "^4.0.0"
+  }
+}

@@ -1,8 +1,11 @@
+
 *, *::after, *::before {
     box-sizing: border-box;
     font-family: 'Gaegu', cursive;   
 }
 
-body {
+body 
+ {
+
     margin: 0;
 }
