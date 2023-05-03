@@ -1,4 +1,4 @@
-import { HeaderSimple } from "../components/Header";
+import { HeaderSimple } from "../Components/Header";
 
 export function HomePage() {
     return(

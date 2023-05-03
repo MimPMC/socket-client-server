@@ -10,6 +10,7 @@ const io = new Server<
 
 io.on('connection', (socket) => {
   socket.join('some room')
+  console.log('join some room')
 });
 
 io.listen(3000);

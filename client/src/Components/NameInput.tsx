@@ -6,7 +6,7 @@ export const useStyles = createStyles((theme) => ({
     transition: "all 0.3s ease",
 
     [theme.fn.smallerThan('sm')]: {
-      width:"70%"
+      width:"100%"
     },
   },  }));
 

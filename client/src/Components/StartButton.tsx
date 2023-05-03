@@ -17,7 +17,7 @@ export const useStyles = createStyles((theme) => ({
     },
 
     [theme.fn.smallerThan('sm')]: {
-      width: "70%",
+      width: "100%",
     },
   },
 }));
