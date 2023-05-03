@@ -1,4 +1,5 @@
 import { createStyles, getStylesRef, Navbar } from "@mantine/core";
+import { useMediaQuery } from '@mantine/hooks';
 import { useState } from "react";
 import clippy from '../assets/clippy.png';
 
@@ -11,7 +12,12 @@ const useStyles = createStyles((theme) => ({
 
   wrapper: {
     backgroundColor: theme.colors.orange[5],
-    height: '',
+    [theme.fn.largerThan('md')]: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      height: '100%',
+    },
   },
 
   footer: {
@@ -128,6 +134,7 @@ interface NavBarProps {
 export function NavbarSimple({ data }: NavBarProps) {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState("Billing");
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const links = data.map((item: DataItem) => (
     <a
@@ -146,18 +153,42 @@ export function NavbarSimple({ data }: NavBarProps) {
   ));
 
   return (
-    <Navbar className={classes.wrapper} height={700} width={{ sm: 300 }} p="md">
-      <Navbar.Section grow>{links}</Navbar.Section>
-      <Navbar.Section className={classes.footer}>
-        <a
-          href="#"
-          className={classes.link2}
-          onClick={(event) => event.preventDefault()}
-        >
-            <img src={clippy} alt="Clip" className={classes.image}/>
-          <span className={classes.button}>Create New Room</span>
-        </a>
-      </Navbar.Section>
-    </Navbar>
-  );
+    <>
+    {!isDesktop && (
+      <Navbar
+        className={classes.wrapper}
+        height={700}
+        width={{ sm: 300 }}
+        p="md"
+      >
+        <Navbar.Section grow>{links}</Navbar.Section>
+        <Navbar.Section className={classes.footer}>
+          <a
+            href="#"
+            className={classes.link2}
+            onClick={(event) => event.preventDefault()}
+          >
+            <img src={clippy} alt="Clip" className={classes.image} />
+            <span className={classes.button}>Create New Room</span>
+          </a>
+        </Navbar.Section>
+      </Navbar>
+    )}
+    {isDesktop && (
+      <aside className={classes.wrapper}>
+        <div style={{ height: "700px", padding: "1rem" }}>{links}</div>
+        <div className={classes.footer}>
+          <a
+            href="#"
+            className={classes.link2}
+            onClick={(event) => event.preventDefault()}
+          >
+            <img src={clippy} alt="Clip" className={classes.image} />
+            <span className={classes.button}>Create New Room</span>
+          </a>
+        </div>
+      </aside>
+    )}
+  </>
+);
 }
