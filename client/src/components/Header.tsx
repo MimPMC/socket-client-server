@@ -2,6 +2,7 @@ import {
   Burger,
   Container,
   createStyles,
+  Drawer,
   Group,
   Header,
   Title,
@@ -24,7 +25,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function HeaderSimple() {
-  const [opened, { toggle }] = useDisclosure(false);
+  const [openedDrawer, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
   const { classes } = useStyles();
 
   const StyledHeader = {
@@ -38,11 +40,15 @@ export function HeaderSimple() {
         <Group spacing={5}></Group>
 
         <Burger
-          opened={opened}
-          onClick={toggle}
+          opened={openedDrawer}
+          onClick={toggleDrawer}
           className={classes.burger}
           size="sm"
         />
+        <Drawer opened={openedDrawer} onClose={closeDrawer}>
+          {/* Drawer content */}
+          <div>hej hej hej drawer</div>
+        </Drawer>
       </Container>
     </Header>
   );
