@@ -43,7 +43,7 @@ const useStyles = createStyles((theme) => ({
       backgroundColor:
         theme.colorScheme === "dark"
           ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+          : theme.colors.cyan[2],
       color: theme.colorScheme === "dark" ? theme.white : theme.black,
 
       [`& .${getStylesRef("icon")}`]: {
@@ -72,7 +72,7 @@ const useStyles = createStyles((theme) => ({
       backgroundColor:
         theme.colorScheme === "dark"
           ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+          : theme.colors.yellow[4],
       color: theme.colorScheme === "dark" ? theme.white : theme.black,
 
       [`& .${getStylesRef("icon")}`]: {
