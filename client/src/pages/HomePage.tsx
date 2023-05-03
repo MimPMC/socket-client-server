@@ -1,7 +1,9 @@
+import { HeaderSimple } from "../components/Header";
+
 export function HomePage() {
     return(
         <div>
-            <h1>hello homepage</h1>
+           <HeaderSimple />
         </div>
     )
 }
