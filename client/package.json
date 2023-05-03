@@ -12,8 +12,10 @@
   "dependencies": {
     "@mantine/core": "^6.0.10",
     "@mantine/hooks": "^6.0.10",
+    "@tabler/icons-react": "^2.17.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^6.11.0",
     "socket.io-client": "^4.6.1"
   },
