@@ -1,11 +1,11 @@
 import {
   Burger,
+  Center,
   Container,
   createStyles,
   Drawer,
   Group,
   Header,
-  Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -33,10 +33,16 @@ export function HeaderSimple() {
     backgroundColor: "#FD7E14",
   };
 
+  const HeaderTitle = {
+    fontSize: "25px",
+  };
+
   return (
-    <Header sx={StyledHeader} height={60} mb={120}>
+    <Header sx={StyledHeader} height={70} mb={120}>
       <Container className={classes.header}>
-        <Title>Chat Cat</Title>
+        <Center sx={HeaderTitle} maw={400} h={100} mx="auto">
+          Cat Chat
+        </Center>
         <Group spacing={5}></Group>
 
         <Burger
