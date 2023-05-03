@@ -1,6 +1,6 @@
 *, *::after, *::before {
     box-sizing: border-box;
-    font-family: 'Gaegu', cursive;
+    font-family: 'Gaegu', cursive;   
 }
 
 body {
