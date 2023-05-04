@@ -15,12 +15,12 @@ io.on('connection', (socket) => {
   console.log("user connected" + socket.id)
 
   //JOIN ROOM
-  socket.on("joinRoom", (data) => {
+  socket.on("createRoom", (data) => {
     socket.join(data);
-    rooms.push(data)
-    socket.emit("listOfRooms", rooms)
-
-    
+    rooms.push(data);
+    socket.emit("listOfRooms", rooms);
+    console.log(rooms);
+    console.log(rooms, socket.id);
   })
 });
 

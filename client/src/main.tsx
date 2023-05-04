@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from '../node_modules/react-router-dom/dist/index';
 import App from './App';
+import { RoomProvider } from './context/RoomContext';
 import { SocketProvider } from './context/SocketContext';
 import { UsernameProvider } from './context/UsernameContext';
 import './index.css';
@@ -23,9 +24,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <MantineProvider>
       <UsernameProvider>
     <SocketProvider>
+      <RoomProvider>
       <RouterProvider router={router} />
+      </RoomProvider>
     </SocketProvider>
     </UsernameProvider>
+    
     </MantineProvider>
   </React.StrictMode>
 );

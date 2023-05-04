@@ -1,8 +1,9 @@
-import { createStyles, getStylesRef, Navbar, TextInput } from "@mantine/core";
-import { useMediaQuery } from '@mantine/hooks';
-import { useState } from "react";
+import { Button, Navbar, TextInput, createStyles, getStylesRef } from "@mantine/core";
+import { useInputState, useMediaQuery } from '@mantine/hooks';
+import { useContext, useState } from "react";
 import clippy from '../assets/clippy.png';
-import {useSocket, } from "../context/SocketContext"
+import { RoomContext } from "../context/RoomContext";
+import { useSocket } from "../context/SocketContext";
 
 
 const useStyles = createStyles((theme) => ({
@@ -156,6 +157,10 @@ export function NavbarSimple({ data }: NavBarProps) {
   const [active, setActive] = useState("Billing");
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const {socket} = useSocket()
+  
+  const [roomValue, setRoomValue] = useInputState("");
+
+  const { rooms, setRooms } = useContext(RoomContext);
 
   const links = data.map((item: DataItem) => (
     <a
@@ -173,9 +178,11 @@ export function NavbarSimple({ data }: NavBarProps) {
     </a>
   ));
 
- function joinRoom() {
-  socket.emit('joinRoom', "hello")
- }
+  function joinRoom(roomName:string) {
+    
+    socket.emit('createRoom', roomName)
+    setRooms([...rooms, "roomName"]);
+  }
 
   return (
     <>
@@ -214,9 +221,9 @@ export function NavbarSimple({ data }: NavBarProps) {
               radius="xl"
               w={"20rem"}
               size="md"
+              value={roomValue}
               placeholder="Enter room name"
-              // value={roomName}
-              // onChange={(e) => setRoom(e.currentTarget.value)}
+              onChange={setRoomValue}
             />
             <a
               href="#"
@@ -224,7 +231,7 @@ export function NavbarSimple({ data }: NavBarProps) {
               onClick={(event) => event.preventDefault()}
             >
               <img src={clippy} alt="Clip" className={classes.image} />
-              <span onClick={joinRoom} className={classes.button}>Create New Room</span>
+              <span onClick={() => joinRoom(roomValue)} className={classes.button}>Create New Room</span>
             </a>
           </div>
         </aside>
