@@ -6,19 +6,19 @@ const io = new Server({
   },
 });
 
-let onlineUsers = [];
+let onlineUsers:any = [];
 
-const addNewUser = (username, socketId) => {
-  !onlineUsers.some((user) => user.username === username) &&
+const addNewUser = (username: string, socketId:any) => {
+  !onlineUsers.some((user:any) => user.username === username) &&
     onlineUsers.push({ username, socketId });
 };
 
-const removeUser = (socketId) => {
-  onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
+const removeUser = (socketId:any) => {
+  onlineUsers = onlineUsers.filter((user:any) => user.socketId !== socketId);
 };
 
-const getUser = (username) => {
-  return onlineUsers.find((user) => user.username === username);
+const getUser = (username:string) => {
+  return onlineUsers.find((user:any) => user.username === username);
 };
 
 io.on("connection", (socket) => {

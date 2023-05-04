@@ -1,7 +1,7 @@
 import { Box, Container, createStyles, Flex, Image, Title } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import { NameInput } from "../components/NameInput";
-import { StartButton } from "../components/StartButton";
+import { NameInput } from "../Components/NameInput";
+import { StartButton } from "../Components/StartButton";
 import { useUsername } from "../context/UsernameContext";
 
 const useStyles = createStyles((theme) => ({

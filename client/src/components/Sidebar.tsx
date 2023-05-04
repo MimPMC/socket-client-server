@@ -148,6 +148,7 @@ interface DataItem {
 
 interface NavBarProps {
   data: DataItem[];
+  socket: any;
 }
 
 export function NavbarSimple({ data }: NavBarProps) {
