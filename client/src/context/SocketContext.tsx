@@ -3,7 +3,7 @@ import { Socket, io } from "socket.io-client";
 import type {
   ClientToServerEvents,
   ServerToClientEvents,
-} from "../../../server/communication.ts";
+} from "../../../server/communication";
 
 interface ContextValues {
   socket: Socket;

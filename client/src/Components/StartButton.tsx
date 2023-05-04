@@ -26,7 +26,7 @@ export function StartButton() {
   const { classes } = useStyles();
 
   return (
-    <Button radius="xl" size="md" w={"20rem"} className={classes.button1}>
+    <Button type="submit" radius="xl" size="md" w={"20rem"} className={classes.button1}>
       Start Chatting!
     </Button>
   );

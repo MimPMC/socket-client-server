@@ -1,6 +1,8 @@
-import { Box, Container, Flex, Image, Title, createStyles } from "@mantine/core";
-import { NameInput } from "../Components/NameInput";
-import { StartButton } from "../Components/StartButton";
+import { Box, Container, createStyles, Flex, Image, Title } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+import { NameInput } from "../components/NameInput";
+import { StartButton } from "../components/StartButton";
+import { useUsername } from "../context/UsernameContext";
 
 const useStyles = createStyles((theme) => ({
 
@@ -44,11 +46,26 @@ const useStyles = createStyles((theme) => ({
     },
     
   }));
+
+
+
+
+
+
+
   
   
 
 export function LogInPage() {
     const { classes } = useStyles();
+    const { username, setUsername } = useUsername();
+
+      const navigate = useNavigate();
+
+      function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        navigate("/homepage");
+      }
 
     return(
         <Box w={"100%"} bg={"#FD7E14"} h={"100svh"}>
@@ -58,8 +75,13 @@ export function LogInPage() {
                     <Title order={1} className={classes.text} weight={700} size={"3rem"}>Cat Chat</Title>
                 </Flex>
                 <Flex direction="column" align={"center"} gap={20} >
-                  <NameInput></NameInput>
-                  <StartButton></StartButton>          
+                    <form onSubmit={handleFormSubmit}>
+                  <NameInput
+                  value={username}
+                  onChange={(e) => setUsername(e.currentTarget.value)}
+                  ></NameInput>
+                  <StartButton></StartButton>   
+                  </form>       
                 </Flex>
             </Container>
             

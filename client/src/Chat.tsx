@@ -2,8 +2,10 @@ import { Avatar, Badge, Button, Card, Image, Input, Text } from "@mantine/core";
 import { FormEvent, useState } from "react";
 import "./App.css";
 import clip from "./assets/clip.png";
+import { useUsername } from "./context/UsernameContext";
 
 function Chat() {
+  const { username } = useUsername();
   const [messages, setMessages] = useState<string[]>([]);
   const [newMessage, setNewMessage] = useState<string>("");
 
@@ -45,7 +47,7 @@ function Chat() {
         <Avatar src="" size="xl" radius="md" alt="Avatar" />
         <div className="chat-header-info">
           <Text weight={500} size="md" style={{ marginLeft: "20px" }}>
-            Lucas
+            {username}
           </Text>
           <Badge color="gray" variant="light" style={{ marginLeft: "8px" }}>
             Online
