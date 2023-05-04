@@ -1,7 +1,8 @@
-import { createStyles, getStylesRef, Navbar } from "@mantine/core";
+import { createStyles, getStylesRef, Navbar, TextInput } from "@mantine/core";
 import { useMediaQuery } from '@mantine/hooks';
 import { useState } from "react";
 import clippy from '../assets/clippy.png';
+import {useSocket, } from "../context/SocketContext"
 
 
 const useStyles = createStyles((theme) => ({
@@ -154,6 +155,7 @@ export function NavbarSimple({ data }: NavBarProps) {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState("Billing");
   const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const {socket} = useSocket()
 
   const links = data.map((item: DataItem) => (
     <a
@@ -171,43 +173,62 @@ export function NavbarSimple({ data }: NavBarProps) {
     </a>
   ));
 
+ function joinRoom() {
+  socket.emit('joinRoom', "hello")
+ }
+
   return (
     <>
-    {!isDesktop && (
-      <Navbar
-        className={classes.wrapper}
-        height={700}
-        width={{ sm: 300 }}
-        p="md"
-      >
-        <Navbar.Section className={classes.linksContainer} grow>{links}</Navbar.Section>
-        <Navbar.Section className={classes.footer}>
-          <a
-            href="#"
-            className={classes.link2}
-            onClick={(event) => event.preventDefault()}
+      {!isDesktop && (
+        <Navbar
+          className={classes.wrapper}
+          height={700}
+          width={{ sm: 300 }}
+          p="md"
+        >
+          <Navbar.Section className={classes.linksContainer} grow>
+            {links}
+          </Navbar.Section>
+          <Navbar.Section className={classes.footer}>
+            <a
+              href="#"
+              className={classes.link2}
+              onClick={(event) => event.preventDefault()}
+            >
+              <img src={clippy} alt="Clip" className={classes.image} />
+              <span className={classes.button}>Create New Room</span>
+            </a>
+          </Navbar.Section>
+        </Navbar>
+      )}
+      {isDesktop && (
+        <aside className={classes.wrapper}>
+          <div
+            className={classes.linksContainer}
+            style={{ height: "700px", padding: "1rem" }}
           >
-            <img src={clippy} alt="Clip" className={classes.image} />
-            <span className={classes.button}>Create New Room</span>
-          </a>
-        </Navbar.Section>
-      </Navbar>
-    )}
-    {isDesktop && (
-      <aside className={classes.wrapper}>
-        <div className={classes.linksContainer} style={{ height: "700px", padding: "1rem" }}>{links}</div>
-        <div className={classes.footer}>
-          <a
-            href="#"
-            className={classes.link2}
-            onClick={(event) => event.preventDefault()}
-          >
-            <img src={clippy} alt="Clip" className={classes.image} />
-            <span className={classes.button}>Create New Room</span>
-          </a>
-        </div>
-      </aside>
-    )}
-  </>
-);
+            {links}
+          </div>
+          <div className={classes.footer}>
+            <TextInput
+              radius="xl"
+              w={"20rem"}
+              size="md"
+              placeholder="Enter room name"
+              // value={roomName}
+              // onChange={(e) => setRoom(e.currentTarget.value)}
+            />
+            <a
+              href="#"
+              className={classes.link2}
+              onClick={(event) => event.preventDefault()}
+            >
+              <img src={clippy} alt="Clip" className={classes.image} />
+              <span onClick={joinRoom} className={classes.button}>Create New Room</span>
+            </a>
+          </div>
+        </aside>
+      )}
+    </>
+  );
 }

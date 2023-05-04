@@ -1,5 +1,8 @@
 import { Server } from 'socket.io';
 import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from './communication';
+import { Console } from 'console';
+
+const rooms: string[]= []
 
 const io = new Server<
   ClientToServerEvents,
@@ -9,7 +12,16 @@ const io = new Server<
 >();
 
 io.on('connection', (socket) => {
-  socket.join('some room')
+  console.log("user connected" + socket.id)
+
+  //JOIN ROOM
+  socket.on("joinRoom", (data) => {
+    socket.join(data);
+    rooms.push(data)
+    socket.emit("list_of_rooms", rooms)
+
+    
+  })
 });
 
 io.listen(3000);
