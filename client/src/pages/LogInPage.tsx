@@ -2,6 +2,7 @@ import { Box, Container, createStyles, Flex, Image, Title } from "@mantine/core"
 import { useNavigate } from "react-router-dom";
 import { NameInput } from "../components/NameInput";
 import { StartButton } from "../components/StartButton";
+import { useSocket } from "../context/SocketContext";
 import { useUsername } from "../context/UsernameContext";
 
 const useStyles = createStyles((theme) => ({
@@ -59,6 +60,13 @@ const useStyles = createStyles((theme) => ({
 export function LogInPage() {
     const { classes } = useStyles();
     const { username, setUsername } = useUsername();
+
+    const { socket } = useSocket();
+
+
+    socket.on('welcome', (message) => {
+      alert (message)
+    })
 
       const navigate = useNavigate();
 

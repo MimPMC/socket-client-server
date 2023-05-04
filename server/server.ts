@@ -9,6 +9,7 @@ const io = new Server<
 >();
 
 io.on('connection', (socket) => {
+  console.log('user connected')
   socket.join('some room')
 });
 

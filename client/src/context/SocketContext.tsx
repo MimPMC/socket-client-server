@@ -21,6 +21,9 @@ export function SocketProvider({ children }: PropsWithChildren) {
     function connect() {
         console.log('connected to server')  
     }
+    function handleConnect() {
+      alert('Connected to server');
+    }
     function disconnect() {
         console.log('disconnected from server')  
     }
@@ -28,12 +31,14 @@ export function SocketProvider({ children }: PropsWithChildren) {
         console.log(message)  
     }
     socket.on('connect', connect);
+    socket.on('connect', handleConnect);
     socket.on('disconnect', disconnect);
     socket.on('message', message)
     return()=> {
         socket.off('connect', connect)
         socket.off('disconnect', disconnect)
         socket.off('message', message)
+        socket.off('connect', handleConnect);
     }
   }, [socket]);
 
