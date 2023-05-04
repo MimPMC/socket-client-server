@@ -67,7 +67,7 @@ function Chat() {
               index % 2 === 0 ? "chat-message-left" : "chat-message-right"
             }
           >
-            <Text>{message}</Text>
+            <Text>{username}: {message}</Text>
           </Card>
         ))}
       </div>
