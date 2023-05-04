@@ -1,17 +1,27 @@
-import { Avatar, Badge, Button, Card, Image, Input, Text } from "@mantine/core";
+import { Alert, Avatar, Badge, Button, Card, Col, Grid, Image, Input, Text } from "@mantine/core";
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 import clip from "./assets/clip.png";
+import { useUsername } from "./context/UsernameContext";
 
 function Chat() {
+  const { username } = useUsername();
   const [messages, setMessages] = useState<string[]>([]);
   const [newMessage, setNewMessage] = useState<string>("");
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessages([...messages, newMessage]);
-    setNewMessage("");
+    if (!username) {
+      setShowAlert(true);
+    } else {
+      setMessages([...messages, newMessage]);
+      setNewMessage("");
+    }
   }
+  
 
   return (
     <div
@@ -45,7 +55,7 @@ function Chat() {
         <Avatar src="" size="xl" radius="md" alt="Avatar" />
         <div className="chat-header-info">
           <Text weight={500} size="md" style={{ marginLeft: "20px" }}>
-            Lucas
+            {username}
           </Text>
           <Badge color="gray" variant="light" style={{ marginLeft: "8px" }}>
             Online
@@ -65,10 +75,32 @@ function Chat() {
               index % 2 === 0 ? "chat-message-left" : "chat-message-right"
             }
           >
-            <Text>{message}</Text>
+            <Text>{username}: {message}</Text>
           </Card>
         ))}
       </div>
+{/* Add this right above the <form> element */}
+{showAlert && (
+  <Grid gutter="md">
+    <Col>
+      <Alert color="red" title="Error" onClose={() => setShowAlert(false)}>
+        You have to choose a username to chat!
+        <Button
+          color="red"
+          style={{ marginLeft: "10px" }}
+          onClick={() => {
+            setShowAlert(false);
+            navigate("/");
+          }}
+        >
+          Choose a username
+        </Button>
+      </Alert>
+    </Col>
+  </Grid>
+)}
+
+
       <form
         className="chat-form"
         onSubmit={handleSubmit}
