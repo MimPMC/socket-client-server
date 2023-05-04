@@ -29,14 +29,14 @@ function Chat() {
       style={{
         height: "85vh",
         backgroundColor: "orange",
-        width: "60%",
+        width: "70%",
         margin: "0",
         padding: "0",
         paddingLeft: "15px",
         paddingTop: "15px",
         position: "fixed",
         right: "3%",
-        marginTop: "5rem",
+        marginTop: "-5.3rem",
       }}
     >
       <Image
@@ -45,9 +45,9 @@ function Chat() {
         style={{
           width: "3rem",
           height: "3rem",
-          top: "7.7%",
+          top: "9.5%",
           display: "flex",
-          right: "31%",
+          right: "38%",
           position: "fixed",
         }}
       />
@@ -69,6 +69,7 @@ function Chat() {
               borderRadius: "25px",
               marginRight: "2rem",
               marginTop: "1rem",
+              width:'70%'
             }}
             key={index}
             className={
@@ -104,7 +105,7 @@ function Chat() {
       <form
         className="chat-form"
         onSubmit={handleSubmit}
-        style={{ bottom: "6%", position: "fixed", width: "58%" }}
+        style={{ bottom: "7.5%", position: "fixed", width: "67%" }}
       >
         <Input
           className="chat-form-input"
