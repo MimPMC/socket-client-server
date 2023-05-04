@@ -1,11 +1,15 @@
 import Chat from "../Chat";
-import { HeaderSimple } from "../components/Header";
+ Styling-chat
+import { HeaderSimple } from "../Components/Header";
+main
 
 export function HomePage() {
     return(
         <div>
            <HeaderSimple />
-           <Chat />
+ Styling-chat
+ <Chat/>
+ main
         </div>
     )
 }
