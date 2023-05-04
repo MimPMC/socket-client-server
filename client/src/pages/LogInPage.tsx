@@ -62,6 +62,7 @@ export function LogInPage() {
 
       const navigate = useNavigate();
 
+      
       function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         navigate("/homepage");
