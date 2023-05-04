@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
 import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from './communication';
-import { Console } from 'console';
+
 
 const rooms: string[]= []
 
@@ -18,7 +18,7 @@ io.on('connection', (socket) => {
   socket.on("joinRoom", (data) => {
     socket.join(data);
     rooms.push(data)
-    socket.emit("list_of_rooms", rooms)
+    socket.emit("listOfRooms", rooms)
 
     
   })

@@ -1,6 +1,7 @@
 export interface ServerToClientEvents {
     message: (message:string)=> void;
     joinRoom: (data: string) => void;
+    listOfRooms: (rooms: string[]) => string[];
   }
   
 export  interface ClientToServerEvents {

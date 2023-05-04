@@ -1,0 +1,34 @@
+
+//ROOM EVENTS:
+
+clienttoserver: createroom and join it 
+clientToServer: joinRoom
+clienttoserver: leaveroom
+
+
+
+serverToClient: leaveroom
+servertToClient: joinRoom
+serverToClient: leaveRoomIfJoiningANewRoom
+ServerToClient: DELETEeMPYroom
+ServerToClient: listOfRooms
+
+//MESSAGE EVENTS
+
+ClientToServerEvents: sendMessage
+Clienttoserver: showWhenSomeoneIsTyping
+
+ServerToClientEvents: sendMessageToEVeryone
+ServerToClientEvents: showWhenSomeoneIsTyping
+
+
+
+
+
+
+
+
+
+
+
+
