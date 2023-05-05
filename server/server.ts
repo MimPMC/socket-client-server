@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
   socket.emit('rooms', getRooms());
 });
 
-function getRooms() {
+export function getRooms() {
   const { rooms } = io.sockets.adapter;
   const roomsFound: string[] = [];
 
@@ -41,6 +41,11 @@ function getRooms() {
   }
 
   return roomsFound;
+}
+
+export function rooms() {
+  const roomsFound = getRooms();
+  io.emit('rooms', roomsFound);
 }
 
 io.listen(3000);

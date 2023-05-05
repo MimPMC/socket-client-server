@@ -9,6 +9,7 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   room?: string;
   messages: Message[];
+  roomList: string[]
 }
 
 const socket = io();
@@ -19,6 +20,16 @@ export const useSocket = () => useContext(SocketContext);
 function SocketProvider({ children }: PropsWithChildren) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [room, setRoom] = useState<string>();
+  const [roomList, setRoomList] = useState<string[]>([]);
+
+  const getRoomList = () => {
+    socket.emit('rooms', (rooms: string[]) => {
+      setRoomList(rooms);
+      console.log(rooms)
+      console.log(roomList)
+    });
+  };
+  
 
   const joinRoom = (room: string, name: string) => {
     socket.emit('join', room, name, () => {
@@ -31,6 +42,11 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.emit('message', room, message);
   }
 
+  useEffect(()=> {
+    getRoomList();
+  },[roomList])
+
+
   useEffect(() => {
     function connect() {
         console.log('connected to server')  
@@ -41,8 +57,8 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
         setMessages((messages) => [...messages, { name, message }]);
     }
-    function rooms(rooms: string[]) {
-      console.log(rooms);
+    function rooms() {
+      getRoomList()
     }
 
     socket.on('connect', connect);
@@ -58,7 +74,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ joinRoom, sendMessage, room, messages }}>
+    <SocketContext.Provider value={{ joinRoom, sendMessage, room, messages, roomList }}>
       {children}
     </SocketContext.Provider>
   );

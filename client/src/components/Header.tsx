@@ -5,7 +5,7 @@ import {
   createStyles,
   Drawer,
   Group,
-  Header,
+  Header
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { NavbarSimple } from "./Sidebar";
@@ -18,6 +18,7 @@ const useStyles = createStyles((theme) => ({
     height: "100%",
   },
 
+  
   burger: {
     [theme.fn.largerThan("xs")]: {
       display: "none",
@@ -29,6 +30,7 @@ export function HeaderSimple() {
   const [openedDrawer, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes } = useStyles();
+  
 
   const StyledHeader = {
     backgroundColor: "#FD7E14",
@@ -38,12 +40,7 @@ export function HeaderSimple() {
     fontSize: "31px",
   };
 
-  const data = [
-    { link: "", label: "Room 1" },
-    { link: "", label: "Room 2" },
-    { link: "", label: "Room 3" },
-    { link: "", label: "Room 4" },
-  ];
+
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -69,11 +66,11 @@ export function HeaderSimple() {
             size="sm"
           />
           <Drawer opened={openedDrawer} onClose={closeDrawer}>
-            {!isDesktop && <NavbarSimple data={data} />}
+            {!isDesktop && <NavbarSimple />}
           </Drawer>
         </Container>
       </Header>
-      {isDesktop && <NavbarSimple data={data} />}
+      {isDesktop && <NavbarSimple />}
     </>
   );
 }
