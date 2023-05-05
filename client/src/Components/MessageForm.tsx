@@ -9,6 +9,7 @@ function MessageForm() {
     e.preventDefault();
     sendMessage(message);
     setMessage('');
+    console.log("hello hello");
   };
 
   return (
@@ -20,7 +21,7 @@ function MessageForm() {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button type="submit">Send</button>
+      <button type="submit" >Send</button>
     </form>
   );
 }

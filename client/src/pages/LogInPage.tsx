@@ -6,10 +6,9 @@ import {
   Image,
   Title
 } from "@mantine/core";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import JoinForm from "../Components/JoinForm";
 import { useSocket } from "../context/SocketContext";
-
+import ChatPage from "./ChatPage";
 const useStyles = createStyles((theme) => ({
   container: {
     display: "flex",
@@ -45,18 +44,8 @@ const useStyles = createStyles((theme) => ({
 
 export function LogInPage() {
   const { classes } = useStyles();
+  const { room } = useSocket();
   
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
-  const { joinRoom } = useSocket();
- 
-  const navigate = useNavigate();
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    joinRoom(room, name);
-    navigate("/homepage")
-  }
 
   return (
     <Box w={"100%"} bg={"#FD7E14"} h={"100svh"}>
@@ -74,24 +63,7 @@ export function LogInPage() {
           </Title>
         </Flex>
         <Flex direction="column" align={"center"} gap={20}>
-          <form onSubmit={handleSubmit}>
-            <input
-                    name="Name"
-                    placeholder="Name"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}>
-            </input>
-            <input
-        
-                  name="Room"
-                  placeholder="Room"
-                  type="text"
-                  value={room}
-                  onChange={(e) => setRoom(e.target.value)}>
-            </input>
-            <button type="submit">Join</button>
-          </form>
+        {room ? <ChatPage /> : <JoinForm />}
         </Flex>
       </Container>
     </Box>
