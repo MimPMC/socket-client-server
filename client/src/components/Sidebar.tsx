@@ -169,12 +169,6 @@ export function NavbarSimple() {
     }
   };
 
-
-  
-
- 
-
-
   return (
     <>
       {!isDesktop && (

@@ -46,7 +46,6 @@ function SocketProvider({ children }: PropsWithChildren) {
   },);
 
   useEffect(() => {
-    socket.emit('roomsFound', roomsFound);
     function connect() {
         console.log('connected to server')  
     }
