@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useName } from '../context/NameContext';
 import { useSocket } from '../context/SocketContext';
 
 function JoinForm() {
-  const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const { joinRoom } = useSocket();
 
+
   const navigate = useNavigate();
+
+  const { name, setName } = useName();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

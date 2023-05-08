@@ -1,10 +1,15 @@
-import { Button, createStyles } from '@mantine/core';
-import { useState } from 'react';
+
+import { Button, createStyles, Input } from '@mantine/core';
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useName } from "../context/NameContext";
 import { useSocket } from '../context/SocketContext';
 
 
+interface MessageFormProps {
+  showAlert: (show: boolean) => void;
+}
 
-function MessageForm() {
+function MessageForm({ showAlert }: MessageFormProps) {
 
   const useStyles = createStyles((theme) => ({
     button1: {
@@ -36,29 +41,32 @@ function MessageForm() {
     }
   }));
   const {classes} = useStyles()
-  const [message, setMessage] = useState('');
+  const { name } = useName();
+  const [newMessage, setNewMessage] = useState<string>("");
   const { sendMessage } = useSocket();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    sendMessage(message);
-    setMessage('');
-    console.log("hello hello");
-  };
-
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!name) {
+      showAlert(true);
+    } else {
+      sendMessage(newMessage);
+      setNewMessage("");
+    }
+  }
   return (
-    <form onSubmit={handleSubmit} className= {classes.form}>
-      <input
-        name="message"
-        placeholder="Write a message..."
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+    <form onSubmit={(event: FormEvent<HTMLFormElement>) => handleSubmit(event)} className= {classes.form}>
+      <Input
+        value={newMessage}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setNewMessage(event.target.value)}
+        placeholder="Type your message..."
         className={classes.input}
+        rightSection={
+          <Button className={classes.button1} type="submit" style={{ background: "transparent", border: "none" }}>
+            Send
+          </Button>
+        }
       />
-      <Button className= {classes.button1} type="submit" >Send</Button>
     </form>
-  );
-}
-
-export default MessageForm;
+  )
+      }

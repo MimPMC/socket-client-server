@@ -1,11 +1,17 @@
+
 import { Box, Text, Title, createStyles } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+
+import { Alert, Button, Col, Grid } from "@mantine/core";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./App.css";
-import MessageForm from "./Components/MessageForm";
+import { MessageForm } from "./Components/MessageForm";
 import { useSocket } from "./context/SocketContext";
 
 function Chat() {
-  const useStyles = createStyles((theme) => ({
+  const useStyles = createStyles(() => ({
     chatBox: {
       minHeight: "calc(100vh - 70px)", // Use minHeight instead of height
       backgroundColor: "#FEC48F",
@@ -46,8 +52,30 @@ function Chat() {
 
   const { classes } = useStyles();
   const { room, messages } = useSocket();
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   return (
     <Box className={classes.chatBox}>
+        {showAlert && (
+        <Grid gutter="md">
+          <Col>
+            <Alert color="red" title="Error" onClose={() => setShowAlert(false)}>
+              You have to choose a username to chat!
+              <Button
+                color="red"
+                style={{ marginLeft: "10px" }}
+                onClick={() => {
+                  setShowAlert(false);
+                  navigate("/");
+                }}
+              >
+                Choose a username
+              </Button>
+            </Alert>
+          </Col>
+        </Grid>
+      )}
       {/*<Image src={clip} alt="clip image" className={classes.logo} />*/}
       <div className="chat-header">
         <div className="chat-header-info">
@@ -58,6 +86,7 @@ function Chat() {
             Cats in the chat: cat1, cat2, cat3
           </Text>
         </div>
+
         <ul className={classes.chatlist}>
         {messages.map((message, i) => (
           <li key={i} className={classes.li}>
@@ -66,11 +95,12 @@ function Chat() {
             <Text className={classes.name}>{" "+ message.message}</Text>
           </li>
         ))}
+
       </ul>
       </div>
-      
-      <MessageForm />
+      <MessageForm showAlert={setShowAlert} />
     </Box>
+
   );
 }
 
