@@ -9,7 +9,7 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   room?: string;
   messages: Message[];
-  roomList: string[];
+  roomList: string[]
   roomsFound: string[];
 }
 
@@ -43,7 +43,8 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   useEffect(()=> {
     getRoomList();
-  },);
+  },)
+
 
   useEffect(() => {
     function connect() {
@@ -55,11 +56,11 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
         setMessages((messages) => [...messages, { name, message }]);
     }
+    
 
     socket.on('rooms', (rooms: string[]) => {
       setRoomsFound(rooms);
     });
-
     socket.on('connect', connect);
     socket.on('disconnect', disconnect);
     socket.on('message', message);
@@ -74,10 +75,10 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   return (
     <SocketContext.Provider value={{ joinRoom, sendMessage, room, messages, roomList, roomsFound }}>
-  {children}
-</SocketContext.Provider>
-
+      {children}
+    </SocketContext.Provider>
   );
 }
 
 export default SocketProvider;
+
