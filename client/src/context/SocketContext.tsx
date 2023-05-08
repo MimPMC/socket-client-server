@@ -32,9 +32,12 @@ function SocketProvider({ children }: PropsWithChildren) {
   };
   
 
-  const joinRoom = (room: string, name: string) => {
-    socket.emit('join', room, name, () => {
-      setRoom(room);
+  const joinRoom = (newRoom: string, name: string) => {
+    if (room) {
+      socket.emit('leave', room);
+    }
+    socket.emit('join', newRoom, name, () => {
+      setRoom(newRoom);
     });
   };
 
@@ -55,6 +58,9 @@ function SocketProvider({ children }: PropsWithChildren) {
     function disconnect() {
         console.log('disconnected from server')  
     }
+    function leave(room: string) {
+      setRoom(undefined);
+    }
     function message(name: string, message: string) {
         setMessages((messages) => [...messages, { name, message }]);
     }
@@ -64,11 +70,13 @@ function SocketProvider({ children }: PropsWithChildren) {
 
     socket.on('connect', connect);
     socket.on('disconnect', disconnect);
+    socket.on('leave', leave)
     socket.on('message', message)
     socket.on('rooms', rooms);
     return()=> {
         socket.off('connect', connect)
         socket.off('disconnect', disconnect)
+        socket.off('leave', leave);
         socket.off('message', message)
         socket.off('rooms', rooms);
     }

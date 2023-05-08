@@ -27,6 +27,13 @@ io.on('connection', (socket) => {
 
   // When a new user connects send the list of rooms
   socket.emit('rooms', getRooms());
+
+  socket.on('leave', (room) => {
+    socket.leave(room);
+    // When a user leaves a room, send an updated
+    // list of rooms to everyone
+    io.emit('rooms', getRooms());
+  });
 });
 
 export function getRooms() {
