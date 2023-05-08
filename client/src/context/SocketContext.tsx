@@ -47,6 +47,7 @@ const userTyping = (isTyping: boolean) => {
     }
     socket.emit('join', newRoom, name, () => {
       setRoom(newRoom);
+      setMessages([]);
     });
   };
 
