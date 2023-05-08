@@ -1,4 +1,4 @@
-import MessageForm from '../components/MessageForm';
+import MessageForm from '../Components/MessageForm';
 import { useSocket } from '../context/SocketContext';
 
 function ChatPage() {
