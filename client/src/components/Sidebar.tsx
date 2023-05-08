@@ -1,10 +1,12 @@
 import { createStyles, getStylesRef, Navbar } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import clippy from "../assets/clippy.png";
 import { useName } from "../context/NameContext";
 import { useSocket } from '../context/SocketContext';
+
+
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -146,11 +148,13 @@ const useStyles = createStyles((theme) => ({
 
 
 export function NavbarSimple() {
+  const { roomsFound } = useSocket();
   const { classes } = useStyles();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [room, setRoom] = useState("");
   const { joinRoom } = useSocket();
   const navigate = useNavigate();
+  
   //const rooms: string[] = [];
 
   const { name } = useName();
@@ -180,9 +184,15 @@ export function NavbarSimple() {
           width={{ sm: 300 }}
           p="md"
         >
-          <Navbar.Section className={classes.linksContainer} grow>
-            {'links'}
-          </Navbar.Section>
+          <Navbar.Section>
+          <ul>
+        {roomsFound.map(( index) => (
+          <li key={index}>
+            
+          </li>
+        ))}
+      </ul>
+      </Navbar.Section>
           <Navbar.Section className={classes.footer}>
               <img src={clippy} alt="Clip" className={classes.image} />
               <form onSubmit={handleSubmit}>

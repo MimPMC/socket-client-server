@@ -9,10 +9,9 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   room?: string;
   messages: Message[];
-  roomList: string[]
+  roomList: string[];
+  roomsFound: string[];
 }
-
-const socket = io();
 
 const SocketContext = createContext<ContextValues>(null as any);
 export const useSocket = () => useContext(SocketContext);
@@ -21,16 +20,16 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [room, setRoom] = useState<string>();
   const [roomList, setRoomList] = useState<string[]>([]);
+  const [roomsFound, setRoomsFound] = useState<string[]>([]);
+  const socket = io();
+
 
   const getRoomList = () => {
     socket.emit('rooms', (rooms: string[]) => {
       setRoomList(rooms);
-      console.log(rooms)
-      console.log(roomList)
     });
   };
   
-
   const joinRoom = (room: string, name: string) => {
     socket.emit('join', room, name, () => {
       setRoom(room);
@@ -44,10 +43,10 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   useEffect(()=> {
     getRoomList();
-  },[roomList])
-
+  },);
 
   useEffect(() => {
+    socket.emit('roomsFound', roomsFound);
     function connect() {
         console.log('connected to server')  
     }
@@ -57,26 +56,32 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
         setMessages((messages) => [...messages, { name, message }]);
     }
-    function rooms() {
-      getRoomList()
+    
+    function handleRoomsFound(roomsFound: string[]) {
+      console.log(roomsFound);
     }
+
+    socket.on('rooms', (rooms: string[]) => {
+      setRoomsFound(rooms);
+    });
 
     socket.on('connect', connect);
     socket.on('disconnect', disconnect);
-    socket.on('message', message)
-    socket.on('rooms', rooms);
-    return()=> {
-        socket.off('connect', connect)
-        socket.off('disconnect', disconnect)
-        socket.off('message', message)
-        socket.off('rooms', rooms);
+    socket.on('message', message);
+
+    return ()=> {
+        socket.off('roomsFound', handleRoomsFound);
+        socket.off('connect', connect);
+        socket.off('disconnect', disconnect);
+        socket.off('message', message);
     }
-  }, []);
+  }, );
 
   return (
-    <SocketContext.Provider value={{ joinRoom, sendMessage, room, messages, roomList }}>
-      {children}
-    </SocketContext.Provider>
+    <SocketContext.Provider value={{ joinRoom, sendMessage, room, messages, roomList, roomsFound }}>
+  {children}
+</SocketContext.Provider>
+
   );
 }
 
