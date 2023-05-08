@@ -151,7 +151,7 @@ export function NavbarSimple() {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [inputRoom, setInputRoom] = useState("");
   const navigate = useNavigate();
-
+  const { joinRoom, roomList } = useSocket();
 
   const { name } = useName();
  
