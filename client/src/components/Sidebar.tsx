@@ -184,14 +184,17 @@ export function NavbarSimple() {
             {'links'}
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
-            <a
-              href="#"
-              className={classes.link2}
-              onClick={(event) => event.preventDefault()}
-            >
               <img src={clippy} alt="Clip" className={classes.image} />
-              <span className={classes.button}>Create New Room</span>
-            </a>
+              <form onSubmit={handleSubmit}>
+                <input
+                  name="Room"
+                  placeholder="Create new room"
+                  type="text"
+                  value={room}
+                  onChange={(e) => setRoom(e.target.value)}
+                />
+                <button type="submit">join</button>
+              </form>
           </Navbar.Section>
         </Navbar>
       )}
