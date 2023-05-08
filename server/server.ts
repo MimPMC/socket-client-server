@@ -50,18 +50,25 @@ io.on('connection', (socket) => {
 });
 
 export function getRooms() {
-  const { rooms } = io.sockets.adapter;
-  const roomsFound: string[] = [];
+  const { rooms, sids } = io.sockets.adapter;
+  const roomsFound: { name: string; users: string[] }[] = [];
 
   for (const [name, setOfSocketIds] of rooms) {
-    // An actual real room that we created
-    if (!setOfSocketIds.has(name)) {
-      roomsFound.push(name);
+    if (!sids.has(name)) {
+      const users = Array.from(setOfSocketIds)
+        .map((socketId) => {
+          const socket = io.sockets.sockets.get(socketId);
+          return socket?.data.name;
+        })
+        .filter((name): name is string => Boolean(name));
+
+      roomsFound.push({ name, users });
     }
   }
 
   return roomsFound;
 }
+
 
 export function rooms() {
   const roomsFound = getRooms();

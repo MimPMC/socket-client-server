@@ -11,7 +11,7 @@ interface ContextValues {
   typingUsers: string[];
   room?: string;
   messages: Message[];
-  roomList: string[]
+  roomList: { name: string; users: string[] }[];
   getRoomList: () => void;
 }
 
@@ -23,16 +23,18 @@ export const useSocket = () => useContext(SocketContext);
 function SocketProvider({ children }: PropsWithChildren) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [room, setRoom] = useState<string>();
-  const [roomList, setRoomList] = useState<string[]>([]);
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
+  const [roomList, setRoomList] = useState<{ name: string; users: string[] }[]>([]);
+  // ...
 
   const getRoomList = () => {
-    socket.emit('rooms', (rooms: string[]) => {
+    socket.emit('rooms', (rooms: { name: string; users: string[] }[]) => {
       setRoomList(rooms);
-      console.log(rooms)
-      console.log(roomList)
+      console.log(rooms);
+      console.log(roomList);
     });
   };
+  
 
   // Add two new functions to emit typing and stop_typing events
 const userTyping = (isTyping: boolean) => {
@@ -80,9 +82,10 @@ const userTyping = (isTyping: boolean) => {
     function message(name: string, message: string) {
         setMessages((messages) => [...messages, { name, message }]);
     }
-    function rooms(rooms: string[]) {
-      setRoomList(rooms)
+    function rooms(rooms: { name: string; users: string[] }[]) {
+      setRoomList(rooms);
     }
+    
 
     socket.on('connect', connect);
     socket.on('disconnect', disconnect);

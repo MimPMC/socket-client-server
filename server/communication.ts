@@ -1,6 +1,6 @@
 export interface ServerToClientEvents {
     message: (name: string, message: string) => void;
-    rooms: (rooms: string[]) => void;
+    rooms: (rooms: { name: string; users: string[] }[]) => void;
     typing: (name: string) => void;
     stop_typing: (name: string) => void;
   }
