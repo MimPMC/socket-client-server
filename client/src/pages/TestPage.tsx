@@ -33,7 +33,7 @@ export function TestPage() {
             <Box w={"100%"} h={"80rem"} bg={"blue"} >
             <Chat></Chat>
             </Box>
-            <MyFooter data={footerLinks}></MyFooter>
+            
            
         </div>
     )
