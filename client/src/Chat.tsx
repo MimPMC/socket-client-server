@@ -1,4 +1,6 @@
-import { Image, Text } from "@mantine/core";
+import { Alert, Button, Col, Grid, Image, Text } from "@mantine/core";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 import clip from "./assets/clip.png";
 import MessageForm from "./Components/MessageForm";
@@ -7,6 +9,8 @@ import { useSocket } from "./context/SocketContext";
 
 function Chat() {
 const { room, messages } = useSocket();  
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const navigate = useNavigate();
   return (
     <div
       className="App"
@@ -49,7 +53,26 @@ const { room, messages } = useSocket();
           </li>
         ))}
       </ul>
-        <MessageForm />
+     {showAlert && (
+        <Grid gutter="md">
+          <Col>
+            <Alert color="red" title="Error" onClose={() => setShowAlert(false)}>
+              You have to choose a username to chat!
+              <Button
+                color="red"
+                style={{ marginLeft: "10px" }}
+                onClick={() => {
+                  setShowAlert(false);
+                  navigate("/");
+                }}
+              >
+                Choose a username
+              </Button>
+            </Alert>
+          </Col>
+        </Grid>
+      )}
+      <MessageForm showAlert={setShowAlert} />
     </div>
   );
 }

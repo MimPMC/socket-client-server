@@ -1,29 +1,41 @@
-import { useState } from 'react';
-import { useSocket } from '../context/SocketContext';
+import { Button, Input } from "@mantine/core";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useName } from "../context/NameContext";
+import { useSocket } from "../context/SocketContext";
 
-function MessageForm() {
-  const [message, setMessage] = useState('');
+interface MessageFormProps {
+  showAlert: (show: boolean) => void;
+}
+
+const MessageForm = ({ showAlert }: MessageFormProps) => {
   const { sendMessage } = useSocket();
+  const { name } = useName();
+  const [newMessage, setNewMessage] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    sendMessage(message);
-    setMessage('');
-    console.log("hello hello");
-  };
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!name) {
+      showAlert(true);
+    } else {
+      sendMessage(newMessage);
+      setNewMessage("");
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="message"
-        placeholder="Write a message..."
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+    <form onSubmit={(event: FormEvent<HTMLFormElement>) => handleSubmit(event)} style={{ position: "fixed", bottom: "6%", width: "68%" }}>
+      <Input
+        value={newMessage}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setNewMessage(event.target.value)}
+        placeholder="Type your message..."
+        rightSection={
+          <Button type="submit" style={{ background: "transparent", border: "none" }}>
+            Send
+          </Button>
+        }
       />
-      <button type="submit" >Send</button>
     </form>
   );
-}
+};
 
 export default MessageForm;
