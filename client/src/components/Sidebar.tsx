@@ -3,6 +3,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clippy from "../assets/clippy.png";
+import { useName } from "../context/NameContext";
 import { useSocket } from '../context/SocketContext';
 
 const useStyles = createStyles((theme) => ({
@@ -144,7 +145,7 @@ const useStyles = createStyles((theme) => ({
 
 
 
-export function NavbarSimple({ name }: { name: string }) {
+export function NavbarSimple() {
   const { classes } = useStyles();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [room, setRoom] = useState("");
@@ -152,7 +153,7 @@ export function NavbarSimple({ name }: { name: string }) {
   const navigate = useNavigate();
   //const rooms: string[] = [];
 
-
+  const { name } = useName();
  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
