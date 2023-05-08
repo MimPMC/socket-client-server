@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clippy from "../assets/clippy.png";
 import { useName } from "../context/NameContext";
-import { useSocket } from '../context/SocketContext';
+import { useSocket } from "../context/SocketContext";
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -143,8 +143,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-
-
 export function NavbarSimple() {
   const { classes } = useStyles();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
@@ -154,7 +152,40 @@ export function NavbarSimple() {
   //const rooms: string[] = [];
 
   const { name } = useName();
- 
+
+  const FormContainer = {
+    height: "100px",
+    backgroundColor: "blue",
+    borderRadius: "50px",
+  };
+
+  const Clippy = {
+    position: "fixed",
+    marginTop: "662px",
+  };
+
+  const CreateNewRoomForm = {
+    display: "flex",
+    alignItems: "center",
+  };
+
+  const JoinButton = {
+    color: "red",
+    borderRadius: "50px",
+    height: "30px",
+    width: "50px",
+    border: "none",
+    backgroundColor: "green",
+  };
+
+  const InputBox = {
+    color: "red",
+    border: "none",
+    height: "50px",
+    borderRadius: "50px",
+    padding: "15px",
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (room) {
@@ -164,12 +195,6 @@ export function NavbarSimple() {
       e.currentTarget.reset();
     }
   };
-
-
-  
-
- 
-
 
   return (
     <>
@@ -181,20 +206,20 @@ export function NavbarSimple() {
           p="md"
         >
           <Navbar.Section className={classes.linksContainer} grow>
-            {'links'}
+            {"links"}
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
-              <img src={clippy} alt="Clip" className={classes.image} />
-              <form onSubmit={handleSubmit}>
-                <input
-                  name="Room"
-                  placeholder="Create new room"
-                  type="text"
-                  value={room}
-                  onChange={(e) => setRoom(e.target.value)}
-                />
-                <button type="submit">join</button>
-              </form>
+            <img src={clippy} alt="Clip" className={classes.image} />
+            <form onSubmit={handleSubmit}>
+              <input
+                name="Room"
+                placeholder="Create new room"
+                type="text"
+                value={room}
+                onChange={(e) => setRoom(e.target.value)}
+              />
+              <button type="submit">join</button>
+            </form>
           </Navbar.Section>
         </Navbar>
       )}
@@ -204,21 +229,23 @@ export function NavbarSimple() {
             className={classes.linksContainer}
             style={{ height: "700px", padding: "1rem" }}
           >
-            {'links'}
+            {"links"}
           </div>
-          <div className={classes.footer}>
-              <img src={clippy} alt="Clip" className={classes.image} />
-              <form onSubmit={handleSubmit}>
-                <input
-                  name="Room"
-                  placeholder="Create new room"
-                  type="text"
-                  value={room}
-                  onChange={(e) => setRoom(e.target.value)}
-                />
-                <button type="submit">join</button>
-              </form>
-              
+          <div style={FormContainer} className={classes.footer}>
+            <img src={clippy} alt="Clip" className={classes.image} />
+            <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
+              <input
+                style={InputBox}
+                name="Room"
+                placeholder="Create new room"
+                type="text"
+                value={room}
+                onChange={(e) => setRoom(e.target.value)}
+              />
+              <button style={JoinButton} type="submit">
+                join
+              </button>
+            </form>
           </div>
         </aside>
       )}
