@@ -23,7 +23,7 @@ export function HomePage() {
         <div>      
           <HeaderSimple />
           <Chat/>
-          <Footer data = {footerLinks}></Footer>
+          {/*<Footer data = {footerLinks}></Footer>*/}
         </div>
     )
 }

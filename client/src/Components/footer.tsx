@@ -4,6 +4,9 @@ import { TbBrandInstagram, TbBrandPinterest, TbBrandTumblr } from "react-icons/t
 const useStyles = createStyles((theme) => ({
   footer: {
     position:"fixed",
+    bottom: 0,
+    left:0,
+    right: 0,
     fontFamily:"Gaegu",
     marginTop: rem(0),
     paddingTop: `calc(${theme.spacing.xl} * 2)`,

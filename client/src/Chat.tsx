@@ -11,7 +11,7 @@ const { room, messages } = useSocket();
     <div
       className="App"
       style={{
-        height: "85vh",
+        height: "50rem",
         backgroundColor: "orange",
         width: "70%",
         margin: "0",
