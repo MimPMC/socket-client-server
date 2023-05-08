@@ -147,9 +147,8 @@ export function NavbarSimple() {
   const { classes } = useStyles();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [inputRoom, setInputRoom] = useState("");
-  const { joinRoom } = useSocket();
   const navigate = useNavigate();
-  const { room } = useSocket();
+  const { joinRoom, roomList } = useSocket();
 
   const { name } = useName();
 
@@ -163,6 +162,8 @@ export function NavbarSimple() {
     }
   };
 
+  console.log(roomList)
+
   return (
     <div>
       {!isDesktop && (
@@ -173,7 +174,12 @@ export function NavbarSimple() {
           p="md"
         >
           <Navbar.Section className={classes.linksContainer} grow>
-            <Button>{room}</Button>
+            {roomList.map((activeRoom) => (
+              <Button key={activeRoom} onClick={() => {
+                joinRoom(activeRoom, name);
+                navigate("/homepage");
+              }}>{activeRoom}</Button>
+            ))}
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
             <img src={clippy} alt="Clip" className={classes.image} />
@@ -182,7 +188,7 @@ export function NavbarSimple() {
                 name="Room"
                 placeholder="Create new room"
                 type="text"
-                value={room}
+                value={inputRoom}
                 onChange={(e) => setInputRoom(e.target.value)}
               />
               <button type="submit">join</button>
@@ -196,7 +202,14 @@ export function NavbarSimple() {
             className={classes.linksContainer}
             style={{ height: "700px", padding: "1rem" }}
           >
-            <Button>{room}</Button>
+           <Navbar.Section className={classes.linksContainer} grow>
+            {roomList.map((activeRoom) => (
+              <Button key={activeRoom} onClick={() => {
+                joinRoom(activeRoom, name);
+                navigate("/homepage");
+              }}>{activeRoom}</Button>
+            ))}
+          </Navbar.Section>
           </div>
           <div className={classes.footer}>
             <img src={clippy} alt="Clip" className={classes.image} />
