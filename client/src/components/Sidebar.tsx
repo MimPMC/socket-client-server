@@ -159,7 +159,8 @@ export function NavbarSimple({ name }: { name: string }) {
     if (room) {
       joinRoom(room, name);
       navigate("/homepage");
-  
+      setRoom("");
+      e.currentTarget.reset();
     }
   };
 
