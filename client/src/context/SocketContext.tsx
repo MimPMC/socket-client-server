@@ -56,10 +56,6 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
         setMessages((messages) => [...messages, { name, message }]);
     }
-    
-    function handleRoomsFound(roomsFound: string[]) {
-      console.log(roomsFound);
-    }
 
     socket.on('rooms', (rooms: string[]) => {
       setRoomsFound(rooms);
@@ -70,7 +66,7 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.on('message', message);
 
     return ()=> {
-        socket.off('roomsFound', handleRoomsFound);
+        
         socket.off('connect', connect);
         socket.off('disconnect', disconnect);
         socket.off('message', message);
