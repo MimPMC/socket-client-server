@@ -42,7 +42,7 @@ const { room, messages } = useSocket();
           </Text>
         </div>
       </div>
-        <ul>
+        <ul style={{ listStyle: "none", padding: 0 }}>
         {messages.map((message, i) => (
           <li key={i}>
             {message.name}: {message.message}
