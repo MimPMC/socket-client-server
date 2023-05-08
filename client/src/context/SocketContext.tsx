@@ -10,6 +10,7 @@ interface ContextValues {
   room?: string;
   messages: Message[];
   roomList: string[]
+  getRoomList: () => void;
 }
 
 const socket = io();
@@ -44,7 +45,7 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   useEffect(()=> {
     getRoomList();
-  },[roomList])
+  }, [roomList])
 
 
   useEffect(() => {
@@ -57,8 +58,8 @@ function SocketProvider({ children }: PropsWithChildren) {
     function message(name: string, message: string) {
         setMessages((messages) => [...messages, { name, message }]);
     }
-    function rooms() {
-      getRoomList()
+    function rooms(rooms: string[]) {
+      setRoomList(rooms)
     }
 
     socket.on('connect', connect);
@@ -74,10 +75,11 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ joinRoom, sendMessage, room, messages, roomList }}>
+    <SocketContext.Provider value={{ joinRoom, sendMessage, room, messages, roomList, getRoomList }}>
       {children}
     </SocketContext.Provider>
   );
 }
 
 export default SocketProvider;
+

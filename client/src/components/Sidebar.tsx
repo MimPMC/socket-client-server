@@ -1,10 +1,10 @@
-import { createStyles, getStylesRef, Navbar } from "@mantine/core";
+import { Button, createStyles, getStylesRef, Navbar } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clippy from "../assets/clippy.png";
 import { useName } from "../context/NameContext";
-import { useSocket } from '../context/SocketContext';
+import { useSocket } from "../context/SocketContext";
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -143,36 +143,29 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-
-
 export function NavbarSimple() {
   const { classes } = useStyles();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const [room, setRoom] = useState("");
-  const { joinRoom } = useSocket();
+  const [inputRoom, setInputRoom] = useState("");
   const navigate = useNavigate();
-  //const rooms: string[] = [];
+  const { joinRoom, roomList } = useSocket();
 
   const { name } = useName();
- 
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (room) {
-      joinRoom(room, name);
+    if (inputRoom) {
+      joinRoom(inputRoom, name);
       navigate("/homepage");
-      setRoom("");
+      setInputRoom("");
       e.currentTarget.reset();
     }
   };
 
-
-  
-
- 
-
+  console.log(roomList)
 
   return (
-    <>
+    <div>
       {!isDesktop && (
         <Navbar
           className={classes.wrapper}
@@ -181,20 +174,25 @@ export function NavbarSimple() {
           p="md"
         >
           <Navbar.Section className={classes.linksContainer} grow>
-            {'links'}
+            {roomList.map((activeRoom) => (
+              <Button key={activeRoom} onClick={() => {
+                joinRoom(activeRoom, name);
+                navigate("/homepage");
+              }}>{activeRoom}</Button>
+            ))}
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
-              <img src={clippy} alt="Clip" className={classes.image} />
-              <form onSubmit={handleSubmit}>
-                <input
-                  name="Room"
-                  placeholder="Create new room"
-                  type="text"
-                  value={room}
-                  onChange={(e) => setRoom(e.target.value)}
-                />
-                <button type="submit">join</button>
-              </form>
+            <img src={clippy} alt="Clip" className={classes.image} />
+            <form onSubmit={handleSubmit}>
+              <input
+                name="Room"
+                placeholder="Create new room"
+                type="text"
+                value={inputRoom}
+                onChange={(e) => setInputRoom(e.target.value)}
+              />
+              <button type="submit">join</button>
+            </form>
           </Navbar.Section>
         </Navbar>
       )}
@@ -204,24 +202,31 @@ export function NavbarSimple() {
             className={classes.linksContainer}
             style={{ height: "700px", padding: "1rem" }}
           >
-            {'links'}
+           <Navbar.Section className={classes.linksContainer} grow>
+            {roomList.map((activeRoom) => (
+              <Button key={activeRoom} onClick={() => {
+                joinRoom(activeRoom, name);
+                navigate("/homepage");
+              }}>{activeRoom}</Button>
+            ))}
+          </Navbar.Section>
           </div>
           <div className={classes.footer}>
-              <img src={clippy} alt="Clip" className={classes.image} />
-              <form onSubmit={handleSubmit}>
-                <input
-                  name="Room"
-                  placeholder="Create new room"
-                  type="text"
-                  value={room}
-                  onChange={(e) => setRoom(e.target.value)}
-                />
-                <button type="submit">join</button>
-              </form>
-              
+            <img src={clippy} alt="Clip" className={classes.image} />
+            <form onSubmit={handleSubmit}>
+              <input
+                name="Room"
+                placeholder="Create new room"
+                type="text"
+                value={inputRoom}
+                onChange={(e) => setInputRoom(e.target.value)}
+              />
+              <button type="submit">join</button>
+            </form>
           </div>
         </aside>
       )}
-    </>
+    </div>
   );
 }
+
