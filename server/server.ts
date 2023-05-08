@@ -27,6 +27,7 @@ io.on('connection', (socket) => {
 
   // When a new user connects send the list of rooms
   socket.emit('rooms', getRooms());
+  socket.on('getrooms', getRooms())
 });
 
 export function getRooms() {
