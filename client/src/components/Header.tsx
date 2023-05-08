@@ -8,7 +8,9 @@ import {
   Header
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { NavLink } from 'react-router-dom';
 import { NavbarSimple } from "./Sidebar";
+
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -49,6 +51,7 @@ export function HeaderSimple() {
       <Header sx={StyledHeader} height={70} mb={120}>
         <Container className={classes.header}>
           <Center sx={HeaderTitle} maw={400} h={100} mx="auto">
+            <NavLink to="/">
             <img
               src="/src/assets/chatcat.jpeg"
               alt="Random image"
@@ -56,6 +59,7 @@ export function HeaderSimple() {
               style={{ borderRadius: "50%", marginRight: "10px" }}
             />
             Cat Chat
+            </NavLink>
           </Center>
           <Group spacing={5}></Group>
 

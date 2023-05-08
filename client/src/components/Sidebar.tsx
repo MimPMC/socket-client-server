@@ -151,12 +151,22 @@ export function NavbarSimple({ name }: { name: string }) {
   const { joinRoom } = useSocket();
   const navigate = useNavigate();
   //const rooms: string[] = [];
- 
 
+  const handleCreateRoom = () => {
+    const newRoom = prompt("Enter the new room name:");
+    if (newRoom) {
+      joinRoom(newRoom, name);
+      navigate("/homepage");
+    }
+  };
+ 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    joinRoom(room, name);
-    navigate("/homepage");
+    if (room) {
+      joinRoom(room, name);
+      navigate("/homepage");
+  
+    }
   };
 
 
@@ -198,11 +208,6 @@ export function NavbarSimple({ name }: { name: string }) {
             {'links'}
           </div>
           <div className={classes.footer}>
-            <a
-              href="#"
-              className={classes.link2}
-              onClick={(event) => event.preventDefault()}
-            >
               <img src={clippy} alt="Clip" className={classes.image} />
               <form onSubmit={handleSubmit}>
                 <input
@@ -212,9 +217,9 @@ export function NavbarSimple({ name }: { name: string }) {
                   value={room}
                   onChange={(e) => setRoom(e.target.value)}
                 />
-                <button type="submit">Join</button>
+                <button type="submit">join</button>
               </form>
-            </a>
+              
           </div>
         </aside>
       )}

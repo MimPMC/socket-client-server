@@ -7,13 +7,14 @@ function JoinForm() {
   const [room, setRoom] = useState('');
   const { joinRoom } = useSocket();
 
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     joinRoom(room, name);
-    navigate("/homepage")
+    navigate("/homepage");
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
