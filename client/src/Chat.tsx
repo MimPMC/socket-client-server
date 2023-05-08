@@ -1,5 +1,5 @@
 
-import { Box, Text, Title, createStyles } from "@mantine/core";
+import { Box, createStyles, Text, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 
 import { Alert, Button, Col, Grid } from "@mantine/core";
@@ -53,6 +53,7 @@ function Chat() {
   const { room, messages } = useSocket();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { typingUsers } = useSocket();
 
   return (
     <Box className={classes.chatBox}>
@@ -66,6 +67,13 @@ function Chat() {
             Cats in the chat: cat1, cat2, cat3
           </Text>
         </div>
+        <div>
+        {typingUsers.length > 0 && (
+          <p>
+            {typingUsers.join(", ")} {typingUsers.length > 1 ? "are" : "is"} typing...
+          </p>
+        )}
+      </div>
         {showAlert && (
         <Grid gutter="md">
           <Col>

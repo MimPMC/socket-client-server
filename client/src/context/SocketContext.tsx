@@ -7,6 +7,8 @@ import type {
 interface ContextValues {
   joinRoom: (room: string, name: string) => void;
   sendMessage: (message: string) => void;
+  userTyping: (isTyping: boolean) => void;
+  typingUsers: string[];
   room?: string;
   messages: Message[];
   roomList: string[]
@@ -22,6 +24,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [room, setRoom] = useState<string>();
   const [roomList, setRoomList] = useState<string[]>([]);
+  const [typingUsers, setTypingUsers] = useState<string[]>([]);
 
   const getRoomList = () => {
     socket.emit('rooms', (rooms: string[]) => {
@@ -30,6 +33,12 @@ function SocketProvider({ children }: PropsWithChildren) {
       console.log(roomList)
     });
   };
+
+  // Add two new functions to emit typing and stop_typing events
+const userTyping = (isTyping: boolean) => {
+  if (!room) throw Error("Can't send typing event without a room");
+  socket.emit(isTyping ? 'typing' : 'stop_typing', room);
+};
   
 
   const joinRoom = (newRoom: string, name: string) => {
@@ -61,6 +70,12 @@ function SocketProvider({ children }: PropsWithChildren) {
     function leave(room: string) {
       setRoom(undefined);
     }
+    function typing(name: string) {
+      setTypingUsers((users) => [...users, name]);
+    }
+    function stop_typing(name: string) {
+      setTypingUsers((users) => users.filter((user) => user !== name));
+    }
     function message(name: string, message: string) {
         setMessages((messages) => [...messages, { name, message }]);
     }
@@ -71,19 +86,23 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.on('connect', connect);
     socket.on('disconnect', disconnect);
     socket.on('leave', leave)
+    socket.on('typing', typing);
+    socket.on('stop_typing', stop_typing);
     socket.on('message', message)
     socket.on('rooms', rooms);
     return()=> {
         socket.off('connect', connect)
         socket.off('disconnect', disconnect)
         socket.off('leave', leave);
+        socket.off('typing', typing);
+        socket.off('stop_typing', stop_typing);
         socket.off('message', message)
         socket.off('rooms', rooms);
     }
   }, []);
 
   return (
-    <SocketContext.Provider value={{ joinRoom, sendMessage, room, messages, roomList, getRoomList }}>
+    <SocketContext.Provider value={{ joinRoom, sendMessage, userTyping, typingUsers, room, messages, roomList, getRoomList }}>
       {children}
     </SocketContext.Provider>
   );

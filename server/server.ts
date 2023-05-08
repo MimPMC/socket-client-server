@@ -25,6 +25,19 @@ io.on('connection', (socket) => {
     io.emit('rooms', getRooms());
   });
 
+  socket.on('typing', (room) => {
+    if (socket.data.name) {
+      socket.to(room).emit('typing', socket.data.name);
+    }
+  });
+
+  socket.on('stop_typing', (room) => {
+    if (socket.data.name) {
+      socket.to(room).emit('stop_typing', socket.data.name);
+    }
+    
+  });
+
   // When a new user connects send the list of rooms
   socket.emit('rooms', getRooms());
 
