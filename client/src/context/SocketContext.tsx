@@ -41,6 +41,12 @@ function SocketProvider({ children }: PropsWithChildren) {
     if (!room) throw Error("Can't send message without a room");
     socket.emit('message', room, message);
   }
+  const updateRoomlist = (rooms: string[]) => {
+    socket.emit('getrooms', () => {
+      setRoomList(room);
+      console.log(roomList)
+    });
+  };
 
   useEffect(()=> {
     getRoomList();
