@@ -3,7 +3,7 @@ import {
   createStyles,
   Flex,
   getStylesRef,
-  Navbar,
+  Navbar
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import clippy from "../assets/clippy.png";
 import { useName } from "../context/NameContext";
 import { useSocket } from "../context/SocketContext";
+import RoomListButton from "./RoomListButton";
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -199,25 +200,13 @@ export function NavbarSimple() {
         >
           <Navbar.Section className={classes.linksContainer} grow>
             <Flex direction="column" gap="sm" mt="1rem">
-              {roomList.map(({ name: activeRoom, users }) => (
-                <div key={activeRoom}>
-                  <Button
-                    size="lg"
-                    className={classes.button1}
-                    onClick={() => {
-                      joinRoom(activeRoom, name);
-                      navigate("/homepage");
-                    }}
-                  >
-                    {activeRoom}
-                  </Button>
-                  <div>
-                    {users.map((user) => (
-                      <p key={user}>{user}</p>
-                    ))}
-                  </div>
-                </div>
-              ))}
+            {roomList.map((room, index) => (
+                  <RoomListButton
+                    key={index}
+                    room={room}
+                    onClick={() => joinRoom(room.name, name)}
+                  />
+                ))}
             </Flex>
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
@@ -243,24 +232,12 @@ export function NavbarSimple() {
           >
             <Navbar.Section className={classes.linksContainer} grow>
               <Flex direction="column" gap="sm">
-                {roomList.map(({ name: activeRoom, users }) => (
-                  <div key={activeRoom}>
-                    <Button
-                      size="lg"
-                      className={classes.button1}
-                      onClick={() => {
-                        joinRoom(activeRoom, name);
-                        navigate("/homepage");
-                      }}
-                    >
-                      {activeRoom}
-                    </Button>
-                    <div>
-                      {users.map((user) => (
-                        <p key={user}>{user}</p>
-                      ))}
-                    </div>
-                  </div>
+                {roomList.map((room, index) => (
+                  <RoomListButton
+                    key={index}
+                    room={room}
+                    onClick={() => joinRoom(room.name, name)}
+                  />
                 ))}
               </Flex>
             </Navbar.Section>

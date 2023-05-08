@@ -63,9 +63,6 @@ function Chat() {
           <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
             You are in room: {room}
           </Text>
-          <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
-            Cats in the chat: cat1, cat2, cat3
-          </Text>
         </div>
         <div>
         {typingUsers.length > 0 && (
