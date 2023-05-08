@@ -3,7 +3,6 @@ import { useMediaQuery } from "@mantine/hooks";
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import clippy from "../assets/clippy.png";
-import { useName } from "../context/NameContext";
 import { useSocket } from '../context/SocketContext';
 
 
@@ -157,7 +156,7 @@ export function NavbarSimple() {
   
   //const rooms: string[] = [];
 
-  const { name } = useName();
+  
  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -168,6 +167,12 @@ export function NavbarSimple() {
       e.currentTarget.reset();
     }
   };
+
+
+  
+
+ 
+
 
   return (
     <>
@@ -180,12 +185,13 @@ export function NavbarSimple() {
         >
           <Navbar.Section>
           <ul>
-        {roomsFound.map(( index) => (
-          <li key={index}>
-            
-          </li>
-        ))}
-      </ul>
+  {roomsFound.map((room, index) => (
+    <li key={index}>
+      Room {index + 1}: {room}
+    </li>
+  ))}
+</ul>
+
       </Navbar.Section>
           <Navbar.Section className={classes.footer}>
               <img src={clippy} alt="Clip" className={classes.image} />
