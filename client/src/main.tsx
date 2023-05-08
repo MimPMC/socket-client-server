@@ -13,11 +13,12 @@ import "./index.css";
 import { HomePage } from "./pages/HomePage";
 import { LogInPage } from "./pages/LogInPage";
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<LogInPage />} />
-      <Route path="/homepage" element={<HomePage />} />
+      <Route path="/homepage" element={<HomePage name={name} />} />
     </Route>
   )
 );
@@ -25,9 +26,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <MantineProvider>
-      <SocketProvider>
-        <RouterProvider router={router} />
-      </SocketProvider>
+    <SocketProvider>
+      <RouterProvider router={router} />
+    </SocketProvider>
     </MantineProvider>
   </React.StrictMode>
 );
