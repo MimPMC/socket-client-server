@@ -152,13 +152,7 @@ export function NavbarSimple({ name }: { name: string }) {
   const navigate = useNavigate();
   //const rooms: string[] = [];
 
-  const handleCreateRoom = () => {
-    const newRoom = prompt("Enter the new room name:");
-    if (newRoom) {
-      joinRoom(newRoom, name);
-      navigate("/homepage");
-    }
-  };
+
  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
