@@ -177,6 +177,7 @@ export function NavbarSimple({ name }: { name: string }) {
           height={700}
           width={{ sm: 300 }}
           p="md"
+          zIndex={2000}
         >
           <Navbar.Section className={classes.linksContainer} grow>
             {'links'}

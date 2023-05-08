@@ -1,56 +1,76 @@
-import { Image, Text } from "@mantine/core";
+import { Box, Text, Title, createStyles } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import "./App.css";
-import clip from "./assets/clip.png";
 import MessageForm from "./Components/MessageForm";
 import { useSocket } from "./context/SocketContext";
 
-
 function Chat() {
-const { room, messages } = useSocket();  
+  const useStyles = createStyles((theme) => ({
+    chatBox: {
+      minHeight: "calc(100vh - 70px)", // Use minHeight instead of height
+      backgroundColor: "#FEC48F",
+      width: isDesktop ? "calc(100% - 40vh)" : "100%",
+      margin: "0",
+      padding: "1.7rem",
+      marginTop: "70px",
+      position: "absolute",
+      right: 0,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent:" space-between",
+      overflowY: "auto", // Add overflow-y property
+      
+    },
+
+    logo: {
+      width:"5%"
+    },
+    chatlist: {
+      listStyle: 'none',
+      padding: '0'
+    },
+    name: {
+      fontFamily: "'Gaegu', cursive",
+    },
+    li: {
+      display:"flex",
+      padding: ".3rem",
+      paddingLeft:".8rem",
+      marginBottom: ".8rem",
+      background: "white",
+      borderRadius: "1rem"
+    },
+  }));
+
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
+  const { classes } = useStyles();
+  const { room, messages } = useSocket();
   return (
-    <div
-      className="App"
-      style={{
-        height: "85vh",
-        backgroundColor: "orange",
-        width: "70%",
-        margin: "0",
-        padding: "0",
-        paddingLeft: "15px",
-        paddingTop: "15px",
-        position: "fixed",
-        right: "3%",
-        marginTop: "-5.3rem",
-      }}
-    >
-      <Image
-        src={clip}
-        alt="clip image"
-        style={{
-          width: "3rem",
-          height: "3rem",
-          top: "9.5%",
-          display: "flex",
-          right: "38%",
-          position: "fixed",
-        }}
-      />
+    <Box className={classes.chatBox}>
+      {/*<Image src={clip} alt="clip image" className={classes.logo} />*/}
       <div className="chat-header">
         <div className="chat-header-info">
-          <Text weight={500} size="md" style={{ marginLeft: "20px" }}>
+          <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
             You are in room: {room}
           </Text>
+          <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
+            Cats in the chat: cat1, cat2, cat3
+          </Text>
         </div>
-      </div>
-        <ul>
+        <ul className={classes.chatlist}>
         {messages.map((message, i) => (
-          <li key={i}>
-            {message.name}: {message.message}
+          <li key={i} className={classes.li}>
+            <Title order={4} className={classes.name}>{`${message.name}: `}</Title>
+
+            <Text className={classes.name}>{" "+ message.message}</Text>
           </li>
         ))}
       </ul>
-        <MessageForm />
-    </div>
+      </div>
+      
+      <MessageForm />
+    </Box>
   );
 }
 

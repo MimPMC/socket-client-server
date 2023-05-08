@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom';
 import { NavbarSimple } from "./Sidebar";
 
 
+
 const useStyles = createStyles((theme) => ({
   header: {
     display: "flex",
@@ -20,12 +21,15 @@ const useStyles = createStyles((theme) => ({
     height: "100%",
   },
 
-  
   burger: {
-    [theme.fn.largerThan("xs")]: {
+    [theme.fn.largerThan("md")]: {
       display: "none",
     },
   },
+  styledHeader: {
+    backgroundColor: "#FD7E14",
+    position:"fixed"
+  }
 }));
 
 export function HeaderSimple() {
@@ -34,9 +38,7 @@ export function HeaderSimple() {
   const { classes } = useStyles();
   
 
-  const StyledHeader = {
-    backgroundColor: "#FD7E14",
-  };
+
 
   const HeaderTitle = {
     fontSize: "31px",
@@ -48,7 +50,7 @@ export function HeaderSimple() {
 
   return (
     <>
-      <Header sx={StyledHeader} height={70} mb={120}>
+      <Header className={classes.styledHeader} height={70} mb={0}>
         <Container className={classes.header}>
           <Center sx={HeaderTitle} maw={400} h={100} mx="auto">
             <NavLink to="/">
