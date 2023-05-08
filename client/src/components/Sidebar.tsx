@@ -1,4 +1,4 @@
-import { Button, createStyles, getStylesRef, Navbar } from "@mantine/core";
+import { Button, createStyles, Flex, getStylesRef, Navbar } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -141,6 +141,23 @@ const useStyles = createStyles((theme) => ({
       },
     },
   },
+
+  button1: {
+    background: "#54FFF5",
+    color: "black",
+    fontSize: "1.3rem",
+    transition: "all 0.3s ease",
+    cursor: "pointer",
+    borderRadius: "1rem",
+
+    "&:hover": {
+      background: "#4dd8cf",
+    },
+
+    "&:active": {
+      transform: "scale(0.95)",
+    },
+  },
 }));
 
 export function NavbarSimple() {
@@ -175,12 +192,14 @@ export function NavbarSimple() {
           zIndex={2000}
         >
           <Navbar.Section className={classes.linksContainer} grow>
+            <Flex direction="column" gap="sm" mt="1rem">
             {roomList.map((activeRoom) => (
-              <Button key={activeRoom} onClick={() => {
+              <Button size="lg" className={classes.button1} key={activeRoom} onClick={() => {
                 joinRoom(activeRoom, name);
                 navigate("/homepage");
               }}>{activeRoom}</Button>
             ))}
+            </Flex>
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
             <img src={clippy} alt="Clip" className={classes.image} />
@@ -204,12 +223,14 @@ export function NavbarSimple() {
             style={{ height: "700px", padding: "1rem" }}
           >
            <Navbar.Section className={classes.linksContainer} grow>
+            <Flex direction="column" gap="sm">
             {roomList.map((activeRoom) => (
-              <Button key={activeRoom} onClick={() => {
+              <Button size="lg" className={classes.button1} key={activeRoom} onClick={() => {
                 joinRoom(activeRoom, name);
                 navigate("/homepage");
               }}>{activeRoom}</Button>
             ))}
+            </Flex>
           </Navbar.Section>
           </div>
           <div className={classes.footer}>
