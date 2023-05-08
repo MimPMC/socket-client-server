@@ -172,6 +172,7 @@ export function NavbarSimple() {
           height={700}
           width={{ sm: 300 }}
           p="md"
+          zIndex={2000}
         >
           <Navbar.Section className={classes.linksContainer} grow>
             {roomList.map((activeRoom) => (
