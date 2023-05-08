@@ -1,8 +1,10 @@
-import { createStyles, getStylesRef, Navbar } from "@mantine/core";
+import { createStyles, getStylesRef } from "@mantine/core";
 import { useMediaQuery } from '@mantine/hooks';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Server } from "socket.io";
+import { io } from "socket.io-client";
 import clippy from '../assets/clippy.png';
-
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -155,6 +157,33 @@ export function NavbarSimple({ data }: NavBarProps) {
   const [active, setActive] = useState("Billing");
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
+  const [rooms, setRooms] = useState<string[]>([]);
+
+  useEffect(() => {
+    const socket = io();
+    socket.on('connect', () => {
+      const roomsFound = getRooms();
+      setRooms(roomsFound);
+    });
+    socket.on('rooms', (rooms: string[]) => {
+      setRooms(rooms);
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const getRooms = () => {
+    const io = new Server();
+    const { rooms } = io.sockets.adapter;
+    const roomsFound: string[] = [];
+    for (const [name, setOfSocketIds] of rooms) {
+      if (!setOfSocketIds.has(name)) {
+        roomsFound.push(name);
+      }
+    }
+    return roomsFound;
+  };
   const links = data.map((item: DataItem) => (
     <a
       className={cx(classes.link, {
@@ -173,41 +202,38 @@ export function NavbarSimple({ data }: NavBarProps) {
 
   return (
     <>
-    {!isDesktop && (
-      <Navbar
-        className={classes.wrapper}
-        height={700}
-        width={{ sm: 300 }}
-        p="md"
-      >
-        <Navbar.Section className={classes.linksContainer} grow>{links}</Navbar.Section>
-        <Navbar.Section className={classes.footer}>
-          <a
-            href="#"
-            className={classes.link2}
-            onClick={(event) => event.preventDefault()}
-          >
-            <img src={clippy} alt="Clip" className={classes.image} />
-            <span className={classes.button}>Create New Room</span>
-          </a>
-        </Navbar.Section>
-      </Navbar>
-    )}
-    {isDesktop && (
-      <aside className={classes.wrapper}>
-        <div className={classes.linksContainer} style={{ height: "700px", padding: "1rem" }}>{links}</div>
-        <div className={classes.footer}>
-          <a
-            href="#"
-            className={classes.link2}
-            onClick={(event) => event.preventDefault()}
-          >
-            <img src={clippy} alt="Clip" className={classes.image} />
-            <span className={classes.button}>Create New Room</span>
-          </a>
+      {!isDesktop && (
+        <div>
+          <h2>Rooms</h2>
+          <ul>
+            {rooms.map((room) => (
+              <li key={room}>
+                <Link to={`/rooms/${room}`}>{room}</Link>
+              </li>
+            ))}
+          </ul>
         </div>
-      </aside>
-    )}
-  </>
-);
-}
+      )}
+      {isDesktop && (
+        <aside className={classes.wrapper}>
+          <div
+            className={classes.linksContainer}
+            style={{ height: "700px", padding: "1rem" }}
+          >
+            {links}
+          </div>
+          <div className={classes.footer}>
+            <a
+              href="#"
+              className={classes.link2}
+              onClick={(event) => event.preventDefault()}
+            >
+              <img src={clippy} alt="Clip" className={classes.image} />
+              <span className={classes.button}>Create New Room</span>
+            </a>
+          </div>
+        </aside>
+      )}
+    </>
+  );
+      }

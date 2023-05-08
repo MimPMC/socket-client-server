@@ -4,6 +4,7 @@
     "@types/react-icons": "^3.0.0"
   },
   "dependencies": {
-    "@modulz/radix-icons": "^4.0.0"
+    "@modulz/radix-icons": "^4.0.0",
+    "socket.io": "^4.6.1"
   }
 }
