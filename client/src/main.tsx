@@ -12,7 +12,6 @@ import SocketProvider from "./context/SocketContext";
 import "./index.css";
 import { HomePage } from "./pages/HomePage";
 import { LogInPage } from "./pages/LogInPage";
-import { TestPage } from "./pages/TestPage";
 
 
 const router = createBrowserRouter(
@@ -20,7 +19,6 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index element={<LogInPage />} />
       <Route path="/homepage" element={<HomePage />} />
-      <Route path="/test" element={<TestPage/>} />
     </Route>
   )
 );
