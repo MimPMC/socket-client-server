@@ -1,4 +1,4 @@
-import MessageForm from '../Components/MessageForm';
+import { MessageForm } from '../Components/MessageForm';
 import { useSocket } from '../context/SocketContext';
 
 function ChatPage() {
@@ -16,7 +16,7 @@ function ChatPage() {
             </li>
           ))}
         </ul>
-        <MessageForm />
+        <MessageForm showAlert={setShowAlert} />
       </main>
     </>
   );

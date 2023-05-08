@@ -25,7 +25,6 @@ function Chat() {
       flexDirection: "column",
       justifyContent:" space-between",
       overflowY: "auto", // Add overflow-y property
-      
     },
 
     logo: {
@@ -57,6 +56,16 @@ function Chat() {
 
   return (
     <Box className={classes.chatBox}>
+      {/*<Image src={clip} alt="clip image" className={classes.logo} />*/}
+      <div className="chat-header">
+        <div className="chat-header-info">
+          <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
+            You are in room: {room}
+          </Text>
+          <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
+            Cats in the chat: cat1, cat2, cat3
+          </Text>
+        </div>
         {showAlert && (
         <Grid gutter="md">
           <Col>
@@ -76,22 +85,11 @@ function Chat() {
           </Col>
         </Grid>
       )}
-      {/*<Image src={clip} alt="clip image" className={classes.logo} />*/}
-      <div className="chat-header">
-        <div className="chat-header-info">
-          <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
-            You are in room: {room}
-          </Text>
-          <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
-            Cats in the chat: cat1, cat2, cat3
-          </Text>
-        </div>
 
         <ul className={classes.chatlist}>
         {messages.map((message, i) => (
           <li key={i} className={classes.li}>
             <Title order={4} className={classes.name}>{`${message.name}: `}</Title>
-
             <Text className={classes.name}>{" "+ message.message}</Text>
           </li>
         ))}

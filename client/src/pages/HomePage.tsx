@@ -11,7 +11,7 @@ export function HomePage() {
         <div>
             <HeaderSimple></HeaderSimple>
             
-            <Box w={"100%"} h={"80rem"} bg={"#FEC48F"} >
+            <Box w={"100%"} h={"85vh"} bg={"#FEC48F"} >
             <Chat></Chat>
             </Box>
             

@@ -9,7 +9,7 @@ interface MessageFormProps {
   showAlert: (show: boolean) => void;
 }
 
-function MessageForm({ showAlert }: MessageFormProps) {
+export function MessageForm({ showAlert }: MessageFormProps) {
 
   const useStyles = createStyles((theme) => ({
     button1: {
@@ -31,11 +31,13 @@ function MessageForm({ showAlert }: MessageFormProps) {
     input: {
       width: "100%",
       borderRadius: "1rem",
-      padding:".3rem"
+      padding:".3rem",
+      marginBottom: "5px",
     },
     form: {
       display: "flex",
       gap:"1rem",
+      
       height: "2rem",
       borderRadius: "1rem"
     }
@@ -61,12 +63,11 @@ function MessageForm({ showAlert }: MessageFormProps) {
         onChange={(event: ChangeEvent<HTMLInputElement>) => setNewMessage(event.target.value)}
         placeholder="Type your message..."
         className={classes.input}
-        rightSection={
-          <Button className={classes.button1} type="submit" style={{ background: "transparent", border: "none" }}>
-            Send
-          </Button>
-        }
+        radius="lg"
       />
+      <Button className={classes.button1} type="submit">
+      Send
+      </Button>
     </form>
   )
-      }
+}
