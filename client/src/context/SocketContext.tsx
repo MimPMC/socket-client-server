@@ -32,13 +32,10 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   
 
-   const removeRoom = (): void => {
-    
-      socket.emit('leave', room);
-      setRoom(undefined);
-      setMessages([]);
-      
-    
+   const removeRoom = (room: string): void => {
+    socket.emit('leave', room);
+    setRoom(undefined);
+    setMessages([]);
   };
   
   

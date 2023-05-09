@@ -10,7 +10,9 @@ import "./App.css";
 import { MessageForm } from "./Components/MessageForm";
 import { useSocket } from "./context/SocketContext";
 
-function Chat() {
+
+
+function Chat( ) {
   const useStyles = createStyles(() => ({
     chatBox: {
       minHeight: "calc(100vh - 70px)", // Use minHeight instead of height
@@ -54,6 +56,8 @@ function Chat() {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const navigate = useNavigate();
   const { typingUsers } = useSocket();
+  const { removeRoom, roomList  } = useSocket();
+ 
 
   return (
     <Box className={classes.chatBox}>
@@ -62,8 +66,31 @@ function Chat() {
         <div className="chat-header-info">
           <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
             You are in room: {room}
+            {roomList.map((room) => (
+            <Button
+            
+              key={`remove-${room}`}
+              style={{
+                float:'right',
+                height: "2rem",
+                width: "5rem",
+                backgroundColor: "red",
+                color: "white",
+                position:'relative'
+              }}
+              onClick={() => removeRoom(room.name, name)}
+            >
+              leave 
+            </Button>
+          
+          ))};
           </Text>
+          
+          
+          
+          
         </div>
+        
         <div>
         {typingUsers.length > 0 && (
           <p>
