@@ -1,10 +1,17 @@
-import { Button, createStyles, getStylesRef, Navbar } from "@mantine/core";
+import {
+  Button,
+  createStyles,
+  Flex,
+  getStylesRef,
+  Navbar
+} from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clippy from "../assets/clippy.png";
 import { useName } from "../context/NameContext";
 import { useSocket } from "../context/SocketContext";
+import RoomListButton from "./RoomListButton";
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -141,6 +148,23 @@ const useStyles = createStyles((theme) => ({
       },
     },
   },
+
+  button1: {
+    background: "#54FFF5",
+    color: "black",
+    fontSize: "1.3rem",
+    transition: "all 0.3s ease",
+    cursor: "pointer",
+    borderRadius: "1rem",
+
+    "&:hover": {
+      background: "#4dd8cf",
+    },
+
+    "&:active": {
+      transform: "scale(0.95)",
+    },
+  },
 }));
 
 export function NavbarSimple() {
@@ -162,7 +186,7 @@ export function NavbarSimple() {
     }
   };
 
-  console.log(roomList)
+  console.log(roomList);
 
   return (
     <div>
@@ -175,12 +199,15 @@ export function NavbarSimple() {
           zIndex={2000}
         >
           <Navbar.Section className={classes.linksContainer} grow>
-            {roomList.map((activeRoom) => (
-              <Button key={activeRoom} onClick={() => {
-                joinRoom(activeRoom, name);
-                navigate("/homepage");
-              }}>{activeRoom}</Button>
-            ))}
+            <Flex direction="column" gap="sm" mt="1rem">
+            {roomList.map((room, index) => (
+                  <RoomListButton
+                    key={index}
+                    room={room}
+                    onClick={() => joinRoom(room.name, name)}
+                  />
+                ))}
+            </Flex>
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
             <img src={clippy} alt="Clip" className={classes.image} />
@@ -203,14 +230,17 @@ export function NavbarSimple() {
             className={classes.linksContainer}
             style={{ height: "700px", padding: "1rem" }}
           >
-           <Navbar.Section className={classes.linksContainer} grow>
-            {roomList.map((activeRoom) => (
-              <Button key={activeRoom} onClick={() => {
-                joinRoom(activeRoom, name);
-                navigate("/homepage");
-              }}>{activeRoom}</Button>
-            ))}
-          </Navbar.Section>
+            <Navbar.Section className={classes.linksContainer} grow>
+              <Flex direction="column" gap="sm">
+                {roomList.map((room, index) => (
+                  <RoomListButton
+                    key={index}
+                    room={room}
+                    onClick={() => joinRoom(room.name, name)}
+                  />
+                ))}
+              </Flex>
+            </Navbar.Section>
           </div>
           <div className={classes.footer}>
             <img src={clippy} alt="Clip" className={classes.image} />
@@ -230,4 +260,3 @@ export function NavbarSimple() {
     </div>
   );
 }
-

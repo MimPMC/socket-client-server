@@ -46,6 +46,7 @@ export function MessageForm({ showAlert }: MessageFormProps) {
   const { name } = useName();
   const [newMessage, setNewMessage] = useState<string>("");
   const { sendMessage } = useSocket();
+  const { userTyping } = useSocket();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -59,11 +60,14 @@ export function MessageForm({ showAlert }: MessageFormProps) {
   return (
     <form onSubmit={(event: FormEvent<HTMLFormElement>) => handleSubmit(event)} className= {classes.form}>
       <Input
+        type="text"
         value={newMessage}
         onChange={(event: ChangeEvent<HTMLInputElement>) => setNewMessage(event.target.value)}
         placeholder="Type your message..."
         className={classes.input}
         radius="lg"
+        onFocus={() => userTyping(true)}
+        onBlur={() => userTyping(false)}
       />
       <Button className={classes.button1} type="submit">
       Send
