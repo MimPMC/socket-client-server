@@ -1,8 +1,13 @@
-import { createStyles, Flex, getStylesRef, Navbar } from "@mantine/core";
+import {
+  Button,
+  createStyles,
+  Flex,
+  getStylesRef,
+  Navbar,
+} from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import clippy from "../assets/clippy.png";
 import { useName } from "../context/NameContext";
 import { useSocket } from "../context/SocketContext";
 import RoomListButton from "./RoomListButton";
@@ -57,7 +62,7 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark"
         ? theme.colors.dark[1]
         : theme.colors.gray[7],
-    padding: `${theme.spacing.lg} ${theme.spacing.lg}`,
+    padding: `${theme.spacing.md} ${theme.spacing.md}`,
     borderRadius: theme.radius.xl,
     fontWeight: 500,
     textTransform: "uppercase",
@@ -113,6 +118,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: "#53fff5",
     marginLeft: "5px",
     transition: "background-color 0.3s ease-out, color 0.3s ease-out",
+    color: "black",
   },
 
   imgWrapper: {
@@ -180,8 +186,6 @@ export function NavbarSimple() {
 
   const { name } = useName();
 
-  const FormContainer = {};
-
   const JoinRoomContainer = {
     display: "flex",
   };
@@ -199,10 +203,6 @@ export function NavbarSimple() {
     backgroundColor: "#ffd540",
   };
 
-  const imgStyle = {
-    bottom: "50px",
-  };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputRoom) {
@@ -212,8 +212,6 @@ export function NavbarSimple() {
       e.currentTarget.reset();
     }
   };
-
-  console.log(roomList);
 
   return (
     <div>
@@ -237,16 +235,19 @@ export function NavbarSimple() {
             </Flex>
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
-            <img src={clippy} alt="Clip" className={classes.image} />
-            <form onSubmit={handleSubmit}>
+            <div style={JoinRoomContainer} className={classes.footer}></div>
+            <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
               <input
+                style={InputBox}
                 name="Room"
-                placeholder="Create new room"
+                placeholder="Enter room name"
                 type="text"
                 value={inputRoom}
                 onChange={(e) => setInputRoom(e.target.value)}
               />
-              <button type="submit">join</button>
+              <Button className={classes.joinButton} type="submit">
+                Join
+              </Button>
             </form>
           </Navbar.Section>
         </Navbar>
@@ -279,19 +280,19 @@ export function NavbarSimple() {
                 alt="Random image"
               /> */}
             </div>
-            <div style={FormContainer}>
+            <div>
               <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
                 <input
                   style={InputBox}
                   name="Room"
-                  placeholder="Create new room"
+                  placeholder="Enter room name"
                   type="text"
                   value={inputRoom}
                   onChange={(e) => setInputRoom(e.target.value)}
                 />
-                <button className={classes.joinButton} type="submit">
-                  join
-                </button>
+                <Button className={classes.joinButton} type="submit">
+                  Join
+                </Button>
               </form>
             </div>
           </div>
