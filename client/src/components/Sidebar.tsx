@@ -3,7 +3,7 @@ import {
   createStyles,
   Flex,
   getStylesRef,
-  Navbar
+  Navbar,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
@@ -113,12 +113,13 @@ const useStyles = createStyles((theme) => ({
   joinButton: {
     borderRadius: "50px",
     height: "70px",
-    width: "80px",
+    width: "100px",
     padding: "1px",
     border: "none",
     backgroundColor: "#53fff5",
     marginLeft: "5px",
     transition: "background-color 0.3s ease-out, color 0.3s ease-out",
+    fontSize: "16px",
     color: "black",
     "&:hover": {
       backgroundColor: "#4dd8cf",
@@ -204,7 +205,8 @@ export function NavbarSimple() {
     height: "70px",
     borderRadius: "50px",
     padding: "20px",
-    backgroundColor: "#ffd540",
+    backgroundColor: "white",
+    fontSize: "16px",
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -303,8 +305,7 @@ export function NavbarSimple() {
 
           </div>
           <div style={JoinRoomContainer} className={classes.footer}>
-            <div className={classes.imgWrapper}>
-            </div>
+            <div className={classes.imgWrapper}></div>
             <div>
               <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
                 <input
