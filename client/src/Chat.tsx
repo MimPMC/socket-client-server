@@ -57,8 +57,17 @@ function Chat( ) {
   const navigate = useNavigate();
   const { typingUsers } = useSocket();
   const { removeRoom, roomList  } = useSocket();
- 
+  
+  const currentRoom = roomList.find((r) => r.name === room) || { name: "" };
+  const currentRoomIndex = currentRoom ? roomList.findIndex(room => room.name === currentRoom.name) : -1;
 
+
+
+
+  console.log("currentRoomIndex:", currentRoomIndex);
+  console.log("currentRoom:", currentRoom);
+
+  
   return (
     <Box className={classes.chatBox}>
       {/*<Image src={clip} alt="clip image" className={classes.logo} />*/}
@@ -66,25 +75,28 @@ function Chat( ) {
         <div className="chat-header-info">
           <Text weight={500} size="md" style={{ marginLeft: "0" }}  className={classes.name}>
             You are in room: {room}
-            {roomList.map((room) => (
-            <Button
-            
-              key={`remove-${room}`}
-              style={{
-                float:'right',
-                height: "2rem",
-                width: "5rem",
-                backgroundColor: "#54FFF5",
-                color: "black",
-                position:'relative',
-                borderRadius: "1rem",
-              }}
-              onClick={() => removeRoom(room.name, name)}
-            >
-              leave 
-            </Button>
+            {currentRoom != null ? (
+  <Button
+    key={`remove-${currentRoom.name}`}
+    style={{
+      float: 'right',
+      height: '2rem',
+      width: '5rem',
+      backgroundColor: '#54FFF5',
+      color: 'black',
+      position: 'relative',
+      borderRadius: '1rem',
+    }}
+    onClick={() => removeRoom(currentRoom.name, name)}
+
+
+  >
+    Leave Room
+  </Button>
+) : null}
+
           
-          ))}
+          
           </Text>
           
           

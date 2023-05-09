@@ -13,7 +13,7 @@ interface ContextValues {
   messages: Message[];
   roomList: { name: string; users: string[] }[];
   getRoomList: () => void;
-  removeRoom: (room: string, name: string) => void;
+  removeRoom: (room: string, index: number) => void;
   }
 
 
@@ -32,10 +32,12 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   
 
-   const removeRoom = (room: string): void => {
-    socket.emit('leave', room);
+   const removeRoom = (room: string, index:number): void => {
+    socket.emit('leave', room, index); 
+    console.log("hej")
     setRoom(undefined);
     setMessages([]);
+    
   };
   
   
@@ -59,7 +61,7 @@ const userTyping = (isTyping: boolean) => {
   
 
   const joinRoom = (newRoom: string, name: string) => {
-    if (room) {
+    if (room != room) {
       socket.emit('leave', room);
     }
     socket.emit('join', newRoom, name, () => {
