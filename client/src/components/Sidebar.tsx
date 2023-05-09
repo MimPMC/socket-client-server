@@ -186,7 +186,7 @@ export function NavbarSimple() {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [inputRoom, setInputRoom] = useState("");
   const navigate = useNavigate();
-  const { joinRoom, roomList } = useSocket();
+  const { joinRoom, roomList, removeRoom } = useSocket();
 
   const { name } = useName();
 
@@ -228,16 +228,29 @@ export function NavbarSimple() {
           zIndex={2000}
         >
           <Navbar.Section className={classes.linksContainer} grow>
-            <Flex direction="column" gap="sm" mt="1rem">
-              {roomList.map((room, index) => (
-                <RoomListButton
-                  key={index}
-                  room={room}
-                  onClick={() => joinRoom(room.name, name)}
-                />
-              ))}
-            </Flex>
-          </Navbar.Section>
+  <Flex direction="column" gap="sm" mt="1rem">
+    {roomList.map((room) => (
+      <div key={room.name}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <RoomListButton
+            room={room}
+            onClick={() => joinRoom(room.name, name)}
+          />
+          <Button
+            key={`remove-${room.name}`}
+            style={{ height: "5rem", width: "5rem", backgroundColor: "red" }}
+            onClick={() => removeRoom(room.name, name)}
+          >
+            Remove Room
+          </Button>
+        </div>
+      </div>
+    ))}
+  </Flex>
+</Navbar.Section>
+
+
+
           <Navbar.Section className={classes.footer}>
             <div style={JoinRoomContainer} className={classes.footer}></div>
             <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
@@ -262,17 +275,32 @@ export function NavbarSimple() {
             className={classes.linksContainer}
             style={{ height: "700px", padding: "1rem" }}
           >
-            <Navbar.Section className={classes.linksContainer} grow>
-              <Flex direction="column" gap="sm">
-                {roomList.map((room, index) => (
-                  <RoomListButton
-                    key={index}
-                    room={room}
-                    onClick={() => joinRoom(room.name, name)}
-                  />
-                ))}
-              </Flex>
-            </Navbar.Section>
+           <Navbar.Section className={classes.linksContainer} grow>
+  <Flex direction="column" gap="sm" mt="1rem">
+    {roomList.map((room) => (
+      <div key={room.name}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <RoomListButton
+            room={room}
+            onClick={() => joinRoom(room.name, name)}
+          />
+          <Button
+            key={`remove-${room.name}`}
+            style={{ height: "5rem", width: "5rem", backgroundColor: "red" }}
+            onClick={() => removeRoom(room.name, name)}
+          >
+            Remove Room
+          </Button>
+        </div>
+      </div>
+    ))}
+  </Flex>
+</Navbar.Section>
+
+
+
+      
+
           </div>
           <div style={JoinRoomContainer} className={classes.footer}>
             <div className={classes.imgWrapper}>

@@ -13,7 +13,9 @@ interface ContextValues {
   messages: Message[];
   roomList: { name: string; users: string[] }[];
   getRoomList: () => void;
-}
+  removeRoom: (room: string, name: string) => void;
+  }
+
 
 const socket = io();
 
@@ -25,7 +27,23 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [room, setRoom] = useState<string>();
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
   const [roomList, setRoomList] = useState<{ name: string; users: string[] }[]>([]);
-  // ...
+  
+   // ...
+
+  
+
+   const removeRoom = (): void => {
+    
+      socket.emit('leave', room);
+      setRoom(undefined);
+      setMessages([]);
+      
+    
+  };
+  
+  
+  
+  
 
   const getRoomList = () => {
     socket.emit('rooms', (rooms: { name: string; users: string[] }[]) => {
@@ -60,7 +78,7 @@ const userTyping = (isTyping: boolean) => {
 
   useEffect(()=> {
     getRoomList();
-  }, [roomList])
+  }, )
 
 
   useEffect(() => {
@@ -70,7 +88,7 @@ const userTyping = (isTyping: boolean) => {
     function disconnect() {
         console.log('disconnected from server')  
     }
-    function leave(room: string) {
+    function leave() {
       setRoom(undefined);
     }
     function typing(name: string) {
@@ -106,7 +124,7 @@ const userTyping = (isTyping: boolean) => {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ joinRoom, sendMessage, userTyping, typingUsers, room, messages, roomList, getRoomList }}>
+    <SocketContext.Provider value={{ joinRoom, sendMessage, userTyping, typingUsers, room, messages, roomList, getRoomList, removeRoom  }}>
       {children}
     </SocketContext.Provider>
   );
