@@ -8,7 +8,6 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import clippy from "../assets/clippy.png";
 import { useName } from "../context/NameContext";
 import { useSocket } from "../context/SocketContext";
 import RoomListButton from "./RoomListButton";
@@ -45,7 +44,7 @@ const useStyles = createStyles((theme) => ({
     paddingTop: theme.spacing.xl,
     marginTop: theme.spacing.md,
     [theme.fn.largerThan("md")]: {
-      position: "absolute", // Change the position to absolute
+      position: "absolute",
       bottom: theme.spacing.md, // Add bottom value to position the button
       width: "100%", // Set width to 100% for centering the content
     },
@@ -63,7 +62,7 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark"
         ? theme.colors.dark[1]
         : theme.colors.gray[7],
-    padding: `${theme.spacing.lg} ${theme.spacing.lg}`,
+    padding: `${theme.spacing.md} ${theme.spacing.md}`,
     borderRadius: theme.radius.xl,
     fontWeight: 500,
     textTransform: "uppercase",
@@ -111,18 +110,33 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
+  joinButton: {
+    borderRadius: "50px",
+    height: "70px",
+    width: "80px",
+    padding: "1px",
+    border: "none",
+    backgroundColor: "#53fff5",
+    marginLeft: "5px",
+    transition: "background-color 0.3s ease-out, color 0.3s ease-out",
+    color: "black",
+    "&:hover": {
+      backgroundColor: "#4dd8cf",
+    },
+  },
+
+  imgWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   image: {
-    position: "absolute",
     zIndex: 1,
     top: 640,
     left: 180,
     width: "4rem",
-    height: "3rem",
-    [theme.fn.largerThan("md")]: {
-      position: "absolute",
-      top: "-1rem",
-      left: "7rem",
-    },
+    [theme.fn.largerThan("md")]: {},
   },
 
   linkIcon: {
@@ -176,6 +190,23 @@ export function NavbarSimple() {
 
   const { name } = useName();
 
+  const JoinRoomContainer = {
+    display: "flex",
+  };
+
+  const CreateNewRoomForm = {
+    alignItems: "center",
+  };
+
+  const InputBox = {
+    marginRight: "5px",
+    border: "none",
+    height: "70px",
+    borderRadius: "50px",
+    padding: "20px",
+    backgroundColor: "#ffd540",
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputRoom) {
@@ -185,8 +216,6 @@ export function NavbarSimple() {
       e.currentTarget.reset();
     }
   };
-
-  console.log(roomList);
 
   return (
     <div>
@@ -200,26 +229,29 @@ export function NavbarSimple() {
         >
           <Navbar.Section className={classes.linksContainer} grow>
             <Flex direction="column" gap="sm" mt="1rem">
-            {roomList.map((room, index) => (
-                  <RoomListButton
-                    key={index}
-                    room={room}
-                    onClick={() => joinRoom(room.name, name)}
-                  />
-                ))}
+              {roomList.map((room, index) => (
+                <RoomListButton
+                  key={index}
+                  room={room}
+                  onClick={() => joinRoom(room.name, name)}
+                />
+              ))}
             </Flex>
           </Navbar.Section>
           <Navbar.Section className={classes.footer}>
-            <img src={clippy} alt="Clip" className={classes.image} />
-            <form onSubmit={handleSubmit}>
+            <div style={JoinRoomContainer} className={classes.footer}></div>
+            <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
               <input
+                style={InputBox}
                 name="Room"
-                placeholder="Create new room"
+                placeholder="Enter room name"
                 type="text"
                 value={inputRoom}
                 onChange={(e) => setInputRoom(e.target.value)}
               />
-              <button type="submit">join</button>
+              <Button className={classes.joinButton} type="submit">
+                Join
+              </Button>
             </form>
           </Navbar.Section>
         </Navbar>
@@ -242,18 +274,31 @@ export function NavbarSimple() {
               </Flex>
             </Navbar.Section>
           </div>
-          <div className={classes.footer}>
-            <img src={clippy} alt="Clip" className={classes.image} />
-            <form onSubmit={handleSubmit}>
-              <input
-                name="Room"
-                placeholder="Create new room"
-                type="text"
-                value={inputRoom}
-                onChange={(e) => setInputRoom(e.target.value)}
-              />
-              <button type="submit">join</button>
-            </form>
+          <div style={JoinRoomContainer} className={classes.footer}>
+            <div className={classes.imgWrapper}>
+              {/* <Image
+                style={imgStyle}
+                maw={240}
+                mx="auto"
+                src="./src/assets/clippy.png"
+                alt="Random image"
+              /> */}
+            </div>
+            <div>
+              <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
+                <input
+                  style={InputBox}
+                  name="Room"
+                  placeholder="Enter room name"
+                  type="text"
+                  value={inputRoom}
+                  onChange={(e) => setInputRoom(e.target.value)}
+                />
+                <Button className={classes.joinButton} type="submit">
+                  Join
+                </Button>
+              </form>
+            </div>
           </div>
         </aside>
       )}
