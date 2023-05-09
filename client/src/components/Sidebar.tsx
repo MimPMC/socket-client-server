@@ -114,6 +114,7 @@ const useStyles = createStyles((theme) => ({
     borderRadius: "50px",
     height: "70px",
     width: "80px",
+    padding: "1px",
     border: "none",
     backgroundColor: "#53fff5",
     marginLeft: "5px",
