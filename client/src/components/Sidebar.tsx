@@ -44,7 +44,7 @@ const useStyles = createStyles((theme) => ({
     paddingTop: theme.spacing.xl,
     marginTop: theme.spacing.md,
     [theme.fn.largerThan("md")]: {
-      position: "absolute", // Change the position to absolute
+      position: "absolute",
       bottom: theme.spacing.md, // Add bottom value to position the button
       width: "100%", // Set width to 100% for centering the content
     },
