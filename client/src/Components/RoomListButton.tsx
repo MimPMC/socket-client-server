@@ -1,6 +1,5 @@
 import { createStyles } from "@mantine/core";
 
-
 interface RoomListButtonProps {
   room: {
     name: string;
@@ -8,10 +7,6 @@ interface RoomListButtonProps {
   };
   onClick: () => void;
 }
-
-
-  
-  
 
 function RoomListButton({ room, onClick }: RoomListButtonProps) {
   const useStyles = createStyles((theme) => ({
@@ -22,13 +17,13 @@ function RoomListButton({ room, onClick }: RoomListButtonProps) {
       transition: "all 0.3s ease",
       cursor: "pointer",
       borderRadius: "1rem",
-      padding: '10px',
-      margin: '5px',
-  
+      padding: ".5rem",
+      margin: "5px",
+
       "&:hover": {
         background: "#4dd8cf",
       },
-  
+
       "&:active": {
         transform: "scale(0.95)",
       },
@@ -36,17 +31,14 @@ function RoomListButton({ room, onClick }: RoomListButtonProps) {
     list: {
       listStyle: "none",
       paddingLeft: 0,
-    },    
-
+    },
   }));
 
-  const {classes} = useStyles()
+  const { classes } = useStyles();
 
   return (
-    <div
-      onClick={onClick} className={classes.button1}
-    >
-      <strong>{room.name}</strong>
+    <div onClick={onClick} className={classes.button1}>
+      <strong>{room.name}:</strong>
       <ul className={classes.list}>
         {room.users.map((user: string, index: number) => (
           <li key={index}>{user}</li>
