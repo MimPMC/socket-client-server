@@ -3,7 +3,7 @@ import {
   createStyles,
   Flex,
   getStylesRef,
-  Navbar
+  Navbar,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
@@ -228,22 +228,16 @@ export function NavbarSimple() {
           zIndex={2000}
         >
           <Navbar.Section className={classes.linksContainer} grow>
-  <Flex direction="column" gap="sm" mt="1rem">
-    {roomList.map((room) => (
-      <div key={room.name}>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <RoomListButton
-            room={room}
-            onClick={() => joinRoom(room.name, name)}
-          />
-          
-        </div>
-      </div>
-    ))}
-  </Flex>
-</Navbar.Section>
-
-
+            <Flex direction="column" gap="sm" mt="1rem">
+              {roomList.map((room, index) => (
+                <RoomListButton
+                  key={index}
+                  room={room}
+                  onClick={() => joinRoom(room.name, name)}
+                />
+              ))}
+            </Flex>
+          </Navbar.Section>
 
           <Navbar.Section className={classes.footer}>
             <div style={JoinRoomContainer} className={classes.footer}></div>
@@ -269,30 +263,20 @@ export function NavbarSimple() {
             className={classes.linksContainer}
             style={{ height: "700px", padding: "1rem" }}
           >
-           <Navbar.Section className={classes.linksContainer} grow>
-  <Flex direction="column" gap="sm" mt="1rem">
-    {roomList.map((room) => (
-      <div key={room.name}>
-        <div style={{ display: "flex", alignItems: "center"}}>
-          <RoomListButton
-            room={room}
-            onClick={() => joinRoom(room.name, name)}
-          />
-          
-        </div>
-      </div>
-    ))}
-  </Flex>
-</Navbar.Section>
-
-
-
-      
-
+            <Navbar.Section className={classes.linksContainer} grow>
+              <Flex direction="column" gap="sm" mt="1rem">
+                {roomList.map((room, index) => (
+                  <RoomListButton
+                    key={index}
+                    room={room}
+                    onClick={() => joinRoom(room.name, name)}
+                  />
+                ))}
+              </Flex>
+            </Navbar.Section>
           </div>
           <div style={JoinRoomContainer} className={classes.footer}>
-            <div className={classes.imgWrapper}>
-            </div>
+            <div className={classes.imgWrapper}></div>
             <div>
               <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
                 <input
