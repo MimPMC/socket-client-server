@@ -1,14 +1,28 @@
-# socket-client-server mimmi caisa felicia lucas
+# Cat Chat
 
-## Start project
+# About
+This is a chat app built with React, TypeScript, Mantine UI, Socket.IO and Vite.
 
-cd client
-npm i
-npm run dev
+## Installation
+Open a terminal and type:
+* cd server
+* npm install
+* npm run dev
+* cd client
+* npm install
+* npm run dev
 
-cd server
-npm i
-npm run dev
+## Run project
+**To run project you need two terminals open, one server and one client. Start the server first otherwise you will get a proxy error.**
+
+Open a terminal and type:
+* cd server
+* npm run dev
+
+Open another terminal and type:
+* cd client
+* npm run dev
+
 
 ## G krav:
 
