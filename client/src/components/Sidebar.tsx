@@ -276,13 +276,6 @@ export function NavbarSimple() {
           </div>
           <div style={JoinRoomContainer} className={classes.footer}>
             <div className={classes.imgWrapper}>
-              {/* <Image
-                style={imgStyle}
-                maw={240}
-                mx="auto"
-                src="./src/assets/clippy.png"
-                alt="Random image"
-              /> */}
             </div>
             <div>
               <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
