@@ -186,7 +186,7 @@ export function NavbarSimple() {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [inputRoom, setInputRoom] = useState("");
   const navigate = useNavigate();
-  const { joinRoom, roomList, removeRoom } = useSocket();
+  const { joinRoom, roomList } = useSocket();
 
   const { name } = useName();
 
@@ -236,13 +236,7 @@ export function NavbarSimple() {
             room={room}
             onClick={() => joinRoom(room.name, name)}
           />
-          <Button
-            key={`remove-${room.name}`}
-            style={{ height: "5rem", width: "5rem", backgroundColor: "red" }}
-            onClick={() => removeRoom(room.name, name)}
-          >
-            Remove Room
-          </Button>
+          
         </div>
       </div>
     ))}
@@ -279,18 +273,12 @@ export function NavbarSimple() {
   <Flex direction="column" gap="sm" mt="1rem">
     {roomList.map((room) => (
       <div key={room.name}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent:'space-beetween'  }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent:'space-beetween'}}>
           <RoomListButton
             room={room}
             onClick={() => joinRoom(room.name, name)}
           />
-          <Button
-            key={`remove-${room.name}`}
-            style={{ height: "2rem", width: "4rem", backgroundColor: "red", color:'white', textAlign:'center', padding:'0', margin:'0',}}
-            onClick={() => removeRoom(room.name, name)}
-          >
-            leave room
-          </Button>
+          
         </div>
       </div>
     ))}
