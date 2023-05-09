@@ -18,7 +18,6 @@ export function NameInput(props: TextInputProps) {
 
   return (
     <TextInput
-    
       icon={<TbCat size="1.4rem" />}
       radius="xl"
       w={"20rem"} 
