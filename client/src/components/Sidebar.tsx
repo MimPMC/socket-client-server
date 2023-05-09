@@ -104,18 +104,28 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
+  joinButton: {
+    borderRadius: "50px",
+    height: "70px",
+    width: "80px",
+    border: "none",
+    backgroundColor: "#ffd540",
+    marginLeft: "5px",
+    transition: "background-color 0.3s ease-out, color 0.3s ease-out",
+  },
+
+  imgWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   image: {
-    position: "absolute",
     zIndex: 1,
     top: 640,
     left: 180,
     width: "4rem",
-    height: "3rem",
-    [theme.fn.largerThan("md")]: {
-      position: "absolute",
-      top: "-1rem",
-      left: "7rem",
-    },
+    [theme.fn.largerThan("md")]: {},
   },
 
   linkIcon: {
@@ -153,37 +163,27 @@ export function NavbarSimple() {
 
   const { name } = useName();
 
-  const FormContainer = {
-    height: "100px",
-    backgroundColor: "blue",
-    borderRadius: "50px",
-  };
+  const FormContainer = {};
 
-  const Clippy = {
-    position: "fixed",
-    marginTop: "662px",
+  const JoinRoomContainer = {
+    display: "flex",
   };
 
   const CreateNewRoomForm = {
-    display: "flex",
     alignItems: "center",
   };
 
-  const JoinButton = {
-    color: "red",
-    borderRadius: "50px",
-    height: "30px",
-    width: "50px",
+  const InputBox = {
+    marginRight: "5px",
     border: "none",
-    backgroundColor: "green",
+    height: "70px",
+    borderRadius: "50px",
+    padding: "20px",
+    backgroundColor: "#ffd540",
   };
 
-  const InputBox = {
-    color: "red",
-    border: "none",
-    height: "50px",
-    borderRadius: "50px",
-    padding: "15px",
+  const imgStyle = {
+    bottom: "50px",
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -231,21 +231,31 @@ export function NavbarSimple() {
           >
             {"links"}
           </div>
-          <div style={FormContainer} className={classes.footer}>
-            <img src={clippy} alt="Clip" className={classes.image} />
-            <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
-              <input
-                style={InputBox}
-                name="Room"
-                placeholder="Create new room"
-                type="text"
-                value={room}
-                onChange={(e) => setRoom(e.target.value)}
-              />
-              <button style={JoinButton} type="submit">
-                join
-              </button>
-            </form>
+          <div style={JoinRoomContainer} className={classes.footer}>
+            <div className={classes.imgWrapper}>
+              {/* <Image
+                style={imgStyle}
+                maw={240}
+                mx="auto"
+                src="./src/assets/clippy.png"
+                alt="Random image"
+              /> */}
+            </div>
+            <div style={FormContainer}>
+              <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
+                <input
+                  style={InputBox}
+                  name="Room"
+                  placeholder="Create new room"
+                  type="text"
+                  value={room}
+                  onChange={(e) => setRoom(e.target.value)}
+                />
+                <button className={classes.joinButton} type="submit">
+                  join
+                </button>
+              </form>
+            </div>
           </div>
         </aside>
       )}
