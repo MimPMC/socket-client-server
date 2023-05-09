@@ -46,7 +46,7 @@ function RoomListButton({ room, onClick }: RoomListButtonProps) {
     <div
       onClick={onClick} className={classes.button1}
     >
-      <strong>{room.name}</strong>
+      <strong>{room.name}:</strong>
       <ul className={classes.list}>
         {room.users.map((user: string, index: number) => (
           <li key={index}>{user}</li>
