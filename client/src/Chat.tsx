@@ -74,8 +74,8 @@ function Chat( ) {
                 float:'right',
                 height: "2rem",
                 width: "5rem",
-                backgroundColor: "red",
-                color: "white",
+                backgroundColor: "#54FFF5",
+                color: "black",
                 position:'relative'
               }}
               onClick={() => removeRoom(room.name, name)}
