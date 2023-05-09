@@ -119,6 +119,9 @@ const useStyles = createStyles((theme) => ({
     marginLeft: "5px",
     transition: "background-color 0.3s ease-out, color 0.3s ease-out",
     color: "black",
+    "&:hover": {
+      backgroundColor: "#4dd8cf",
+    },
   },
 
   imgWrapper: {
