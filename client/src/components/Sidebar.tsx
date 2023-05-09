@@ -273,7 +273,7 @@ export function NavbarSimple() {
   <Flex direction="column" gap="sm" mt="1rem">
     {roomList.map((room) => (
       <div key={room.name}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent:'space-beetween'}}>
+        <div style={{ display: "flex", alignItems: "center"}}>
           <RoomListButton
             room={room}
             onClick={() => joinRoom(room.name, name)}

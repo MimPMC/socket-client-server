@@ -83,7 +83,7 @@ function Chat( ) {
               leave 
             </Button>
           
-          ))};
+          ))}
           </Text>
           
           
