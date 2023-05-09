@@ -279,17 +279,17 @@ export function NavbarSimple() {
   <Flex direction="column" gap="sm" mt="1rem">
     {roomList.map((room) => (
       <div key={room.name}>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent:'space-beetween'  }}>
           <RoomListButton
             room={room}
             onClick={() => joinRoom(room.name, name)}
           />
           <Button
             key={`remove-${room.name}`}
-            style={{ height: "5rem", width: "5rem", backgroundColor: "red" }}
+            style={{ height: "2rem", width: "4rem", backgroundColor: "red", color:'white', textAlign:'center', padding:'0', margin:'0',}}
             onClick={() => removeRoom(room.name, name)}
           >
-            Remove Room
+            leave room
           </Button>
         </div>
       </div>
