@@ -6,13 +6,11 @@ import {
   Drawer,
   Group,
   Header,
-  Title
+  Title,
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import { NavbarSimple } from "./Sidebar";
-
-
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -28,22 +26,21 @@ const useStyles = createStyles((theme) => ({
     },
   },
   styledHeader: {
-    backgroundColor: "#FD7E14",
-    position:"fixed"
+    backgroundColor: theme.colors.orange[5],
+    position: "fixed",
+    border: "1px solid #ff912b",
   },
   linkGroup: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     textDecoration: "none",
-    
   },
   fontGae: {
     fontFamily: "'Gaegu', cursive",
     fontWeight: 700,
-    color: "black"
-
-  }
+    color: "black",
+  },
 }));
 
 export function HeaderSimple() {
@@ -59,13 +56,15 @@ export function HeaderSimple() {
         <Container className={classes.header}>
           <Center maw={400} h={70} mx="auto">
             <NavLink to="/" className={classes.linkGroup}>
-            <img
-              src="/src/assets/chatcat.jpeg"
-              alt="Random image"
-              height="50px"
-              style={{ borderRadius: "50%", marginRight: "10px" }}
-            />
-            <Title size={38} className={classes.fontGae}>Cat Chat</Title>
+              <img
+                src="/src/assets/chatcat.jpeg"
+                alt="Random image"
+                height="50px"
+                style={{ borderRadius: "50%", marginRight: "10px" }}
+              />
+              <Title size={38} className={classes.fontGae}>
+                Cat Chat
+              </Title>
             </NavLink>
           </Center>
           <Group spacing={5}></Group>

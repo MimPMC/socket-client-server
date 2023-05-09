@@ -113,7 +113,7 @@ const useStyles = createStyles((theme) => ({
   joinButton: {
     borderRadius: "50px",
     height: "70px",
-    width: "80px",
+    width: "100px",
     padding: "1px",
     border: "none",
     backgroundColor: "#53fff5",
@@ -204,7 +204,7 @@ export function NavbarSimple() {
     height: "70px",
     borderRadius: "50px",
     padding: "20px",
-    backgroundColor: "#ffd540",
+    backgroundColor: "white",
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -276,6 +276,7 @@ export function NavbarSimple() {
             </Navbar.Section>
           </div>
           <div style={JoinRoomContainer} className={classes.footer}>
+            <div className={classes.imgWrapper}></div>
             <div className={classes.imgWrapper}></div>
             <div>
               <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
