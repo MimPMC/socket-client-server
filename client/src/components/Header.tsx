@@ -75,7 +75,7 @@ export function HeaderSimple() {
             className={classes.burger}
             size="md"
           />
-          <Drawer opened={openedDrawer} onClose={closeDrawer}>
+          <Drawer opened={openedDrawer} onClose={closeDrawer} withCloseButton={false}>
             {!isDesktop && <NavbarSimple />}
           </Drawer>
         </Container>

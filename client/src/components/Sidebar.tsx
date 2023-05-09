@@ -4,6 +4,7 @@ import {
   Flex,
   getStylesRef,
   Navbar,
+  ScrollArea,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
@@ -220,14 +221,16 @@ export function NavbarSimple() {
   return (
     <div>
       {!isDesktop && (
-        <Navbar
+        <ScrollArea>
+          <Navbar
           className={classes.wrapper}
           height={700}
           width={{ sm: 300 }}
           p="md"
+          bg={"blue"}
           zIndex={2000}
         >
-          <Navbar.Section className={classes.linksContainer} grow>
+          <Navbar.Section className={classes.linksContainer} grow bg={"red"}>
             <Flex direction="column" gap="sm" mt="1rem">
               {roomList.map((room, index) => (
                 <RoomListButton
@@ -239,7 +242,7 @@ export function NavbarSimple() {
             </Flex>
           </Navbar.Section>
 
-          <Navbar.Section className={classes.footer}>
+          <Navbar.Section className={classes.footer} bg={"green"}>
             <div style={JoinRoomContainer} className={classes.footer}></div>
             <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
               <input
@@ -256,6 +259,9 @@ export function NavbarSimple() {
             </form>
           </Navbar.Section>
         </Navbar>
+
+        </ScrollArea>
+        
       )}
       {isDesktop && (
         <aside className={classes.wrapper}>
