@@ -5,7 +5,8 @@ import {
   createStyles,
   Drawer,
   Group,
-  Header
+  Header,
+  Title
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { NavLink } from 'react-router-dom';
@@ -29,6 +30,19 @@ const useStyles = createStyles((theme) => ({
   styledHeader: {
     backgroundColor: "#FD7E14",
     position:"fixed"
+  },
+  linkGroup: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textDecoration: "none",
+    
+  },
+  fontGae: {
+    fontFamily: "'Gaegu', cursive",
+    fontWeight: 700,
+    color: "black"
+
   }
 }));
 
@@ -36,15 +50,6 @@ export function HeaderSimple() {
   const [openedDrawer, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes } = useStyles();
-  
-
-
-
-  const HeaderTitle = {
-    fontSize: "31px",
-  };
-
-
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -52,15 +57,15 @@ export function HeaderSimple() {
     <>
       <Header className={classes.styledHeader} height={70} mb={0}>
         <Container className={classes.header}>
-          <Center sx={HeaderTitle} maw={400} h={100} mx="auto">
-            <NavLink to="/">
+          <Center maw={400} h={70} mx="auto">
+            <NavLink to="/" className={classes.linkGroup}>
             <img
               src="/src/assets/chatcat.jpeg"
               alt="Random image"
               height="50px"
               style={{ borderRadius: "50%", marginRight: "10px" }}
             />
-            Cat Chat
+            <Title size={38} className={classes.fontGae}>Cat Chat</Title>
             </NavLink>
           </Center>
           <Group spacing={5}></Group>
@@ -69,7 +74,7 @@ export function HeaderSimple() {
             opened={openedDrawer}
             onClick={toggleDrawer}
             className={classes.burger}
-            size="sm"
+            size="md"
           />
           <Drawer opened={openedDrawer} onClose={closeDrawer}>
             {!isDesktop && <NavbarSimple />}

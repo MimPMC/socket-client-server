@@ -31,8 +31,6 @@ export function MessageForm({ showAlert }: MessageFormProps) {
     input: {
       width: "100%",
       borderRadius: "1rem",
-      padding:".3rem",
-      marginBottom: "5px",
     },
     form: {
       display: "flex",
@@ -70,8 +68,9 @@ export function MessageForm({ showAlert }: MessageFormProps) {
         onBlur={() => userTyping(false)}
       />
       <Button className={classes.button1} type="submit">
-      Send
+        Send
       </Button>
+      
     </form>
   )
 }

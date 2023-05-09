@@ -7,8 +7,7 @@ import {
   Title
 } from "@mantine/core";
 import JoinForm from "../Components/JoinForm";
-import { useSocket } from "../context/SocketContext";
-import ChatPage from "./ChatPage";
+
 const useStyles = createStyles((theme) => ({
   container: {
     display: "flex",
@@ -44,7 +43,7 @@ const useStyles = createStyles((theme) => ({
 
 export function LogInPage() {
   const { classes } = useStyles();
-  const { room } = useSocket();
+  
   
 
   return (
@@ -63,7 +62,7 @@ export function LogInPage() {
           </Title>
         </Flex>
         <Flex direction="column" align={"center"} gap={20}>
-        {room ? <ChatPage /> : <JoinForm />}
+        <JoinForm />
         </Flex>
       </Container>
     </Box>
