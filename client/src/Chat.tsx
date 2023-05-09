@@ -17,7 +17,7 @@ function Chat( ) {
     chatBox: {
       minHeight: "calc(100vh - 70px)", // Use minHeight instead of height
       backgroundColor: "#FEC48F",
-      width: isDesktop ? "calc(100% - 40vh)" : "100%",
+      width: isDesktop ? "calc(100% - 25rem)" : "100%",
       margin: "0",
       padding: "1.7rem",
       marginTop: "70px",
