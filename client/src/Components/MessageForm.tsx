@@ -1,16 +1,52 @@
-import { Button, Input } from "@mantine/core";
+
+import { Button, createStyles, Input } from '@mantine/core';
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useName } from "../context/NameContext";
-import { useSocket } from "../context/SocketContext";
+import { useSocket } from '../context/SocketContext';
+
 
 interface MessageFormProps {
   showAlert: (show: boolean) => void;
 }
 
-const MessageForm = ({ showAlert }: MessageFormProps) => {
-  const { sendMessage } = useSocket();
+export function MessageForm({ showAlert }: MessageFormProps) {
+
+  const useStyles = createStyles((theme) => ({
+    button1: {
+      background: "#54FFF5",
+      color: "black",
+      fontSize: "1.3rem",
+      transition: "all 0.3s ease",
+      cursor: "pointer",
+      borderRadius: "1rem",
+  
+      "&:hover": {
+        background: "#4dd8cf",
+      },
+  
+      "&:active": {
+        transform: "scale(0.95)",
+      },
+    },
+    input: {
+      width: "100%",
+      borderRadius: "1rem",
+      padding:".3rem",
+      marginBottom: "5px",
+    },
+    form: {
+      display: "flex",
+      gap:"1rem",
+      
+      height: "2rem",
+      borderRadius: "1rem"
+    }
+  }));
+  const {classes} = useStyles()
   const { name } = useName();
   const [newMessage, setNewMessage] = useState<string>("");
+  const { sendMessage } = useSocket();
+  const { userTyping } = useSocket();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,21 +57,21 @@ const MessageForm = ({ showAlert }: MessageFormProps) => {
       setNewMessage("");
     }
   }
-
   return (
-    <form onSubmit={(event: FormEvent<HTMLFormElement>) => handleSubmit(event)} style={{ position: "fixed", bottom: "6%", width: "68%" }}>
+    <form onSubmit={(event: FormEvent<HTMLFormElement>) => handleSubmit(event)} className= {classes.form}>
       <Input
+        type="text"
         value={newMessage}
         onChange={(event: ChangeEvent<HTMLInputElement>) => setNewMessage(event.target.value)}
         placeholder="Type your message..."
-        rightSection={
-          <Button type="submit" style={{ background: "transparent", border: "none" }}>
-            Send
-          </Button>
-        }
+        className={classes.input}
+        radius="lg"
+        onFocus={() => userTyping(true)}
+        onBlur={() => userTyping(false)}
       />
+      <Button className={classes.button1} type="submit">
+      Send
+      </Button>
     </form>
-  );
-};
-
-export default MessageForm;
+  )
+}
