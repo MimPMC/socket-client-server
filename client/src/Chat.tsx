@@ -91,7 +91,7 @@ function Chat( ) {
 
 
   >
-    Leave Room
+    leave
   </Button>
 ) : null}
 
