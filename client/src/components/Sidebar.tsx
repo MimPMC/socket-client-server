@@ -1,9 +1,10 @@
 import {
+  Box,
   Button,
   createStyles,
   Flex,
   getStylesRef,
-  Navbar,
+  Navbar
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
@@ -25,28 +26,50 @@ const useStyles = createStyles((theme) => ({
       top: 70,
       left: 0,
       height: "calc(100% - 70px)",
-      width: "40vh",
+      width: "25rem",
     },
   },
 
   linksContainer: {
     flexGrow: 1,
     [theme.fn.largerThan("md")]: {
-      height: "calc(100% - 120px)",
+      height: "calc(100%-300px)",
       overflowY: "auto",
     },
+  },
+  linksContainer1: {
+    display: "flex",
+    width: "100%",
+    flexDirection: "column",
+    [theme.fn.largerThan("md")]: {
+      overflowY: "auto",
+    },
+  },
+  grow: {
+
   },
 
   footer: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    paddingTop: theme.spacing.xl,
-    marginTop: theme.spacing.md,
+    justifyContent: "flex-start",
+    padding:  theme.spacing.sm,
     [theme.fn.largerThan("md")]: {
       position: "absolute",
       bottom: theme.spacing.md, // Add bottom value to position the button
+    },
+  },
+  footer1: {
+    height: "auto",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: theme.spacing.sm,
+
+    [theme.fn.largerThan("md")]: {
+      position: "absolute",
       width: "100%", // Set width to 100% for centering the content
+
     },
   },
 
@@ -112,8 +135,8 @@ const useStyles = createStyles((theme) => ({
 
   joinButton: {
     borderRadius: "50px",
-    height: "70px",
-    width: "100px",
+    height: "3rem",
+    width: "5rem",
     padding: "1px",
     border: "none",
     backgroundColor: "#53fff5",
@@ -122,6 +145,10 @@ const useStyles = createStyles((theme) => ({
     color: "black",
     "&:hover": {
       backgroundColor: "#4dd8cf",
+    },
+    [theme.fn.smallerThan("sm")]: {
+      width: "3.3rem",
+      marginLeft: "0px",
     },
   },
 
@@ -179,9 +206,13 @@ const useStyles = createStyles((theme) => ({
       transform: "scale(0.95)",
     },
   },
+  hey: {
+    
+  }
 }));
 
 export function NavbarSimple() {
+ 
   const { classes } = useStyles();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [inputRoom, setInputRoom] = useState("");
@@ -189,6 +220,7 @@ export function NavbarSimple() {
   const { joinRoom, roomList } = useSocket();
 
   const { name } = useName();
+
 
   const JoinRoomContainer = {
     display: "flex",
@@ -201,10 +233,12 @@ export function NavbarSimple() {
   const InputBox = {
     marginRight: "5px",
     border: "none",
-    height: "70px",
+    height: "3rem",
     borderRadius: "50px",
-    padding: "20px",
+    padding: "1rem",
     backgroundColor: "white",
+    flex: 1,
+
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -220,15 +254,9 @@ export function NavbarSimple() {
   return (
     <div>
       {!isDesktop && (
-        <Navbar
-          className={classes.wrapper}
-          height={700}
-          width={{ sm: 300 }}
-          p="md"
-          zIndex={2000}
-        >
-          <Navbar.Section className={classes.linksContainer} grow>
-            <Flex direction="column" gap="sm" mt="1rem">
+        <Box h={"100vh"}  mx="-md" my="-md" p="md" pt={70} display={"flex"} bg={"#ff912b"}>
+          <Box className={classes.linksContainer1}>
+            <Flex direction="column" gap="sm" mt="1rem" bg={"#ff912b"} h={"90%"} w={"100%"}>
               {roomList.map((room, index) => (
                 <RoomListButton
                   key={index}
@@ -237,10 +265,7 @@ export function NavbarSimple() {
                 />
               ))}
             </Flex>
-          </Navbar.Section>
-
-          <Navbar.Section className={classes.footer}>
-            <div style={JoinRoomContainer} className={classes.footer}></div>
+            <Box className={classes.footer1}bg={"#ff912b"} >
             <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
               <input
                 style={InputBox}
@@ -254,8 +279,9 @@ export function NavbarSimple() {
                 Join
               </Button>
             </form>
-          </Navbar.Section>
-        </Navbar>
+          </Box>
+          </Box>
+        </Box>
       )}
       {isDesktop && (
         <aside className={classes.wrapper}>
