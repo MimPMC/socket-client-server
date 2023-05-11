@@ -25,8 +25,11 @@ Open another terminal and type:
 * cd client
 * npm run dev
 
-## vi har skapat + links to github
-[displau](link)
+## Contributors
+[Caisa Köhlin](https://github.com/caisak)
+[Mimmi Collin](https://github.com/MimPMC)
+[Felicia Willnäs](https://github.com/feliciawillnas)
+[Lucas Alfredsson](https://github.com/lauax)
 
 
 ## G krav:
