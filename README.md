@@ -8,6 +8,8 @@ Open a terminal and type:
 * cd server
 * npm install
 * npm run dev
+
+Open another terminal and type:
 * cd client
 * npm install
 * npm run dev
@@ -22,6 +24,9 @@ Open a terminal and type:
 Open another terminal and type:
 * cd client
 * npm run dev
+
+## vi har skapat + links to github
+[displau](link)
 
 
 ## G krav:

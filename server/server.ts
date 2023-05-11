@@ -22,8 +22,15 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join", (room, name, ack) => {
-    socket.data.name = name;
+    if (socket.data.room) {
+      socket.leave(socket.data.room);
+    }
+    
     socket.join(room);
+
+    socket.data.name = name;
+    socket.data.room = room;
+
     ack();
     io.emit("rooms", getRooms());
   });
@@ -46,6 +53,10 @@ io.on("connection", (socket) => {
     socket.leave(room);
     io.emit("rooms", getRooms());
   });
+  
+  socket.on("disconnect", () => {
+    io.emit("rooms", getRooms());
+  })
 });
 
 export function getRooms() {

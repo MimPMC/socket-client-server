@@ -20,6 +20,7 @@ export  interface InterServerEvents {
   
  export interface SocketData {
     name: string;
+    room: string;
   }
 
   export interface Message {
