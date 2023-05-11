@@ -41,9 +41,7 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 700,
     color: "black",
   },
-  hej: {
-
-  }
+  hej: {},
 }));
 
 export function HeaderSimple() {
@@ -78,7 +76,12 @@ export function HeaderSimple() {
             className={classes.burger}
             size="md"
           />
-          <Drawer opened={openedDrawer} onClose={closeDrawer} withCloseButton={false} className={classes.hej} >
+          <Drawer
+            opened={openedDrawer}
+            onClose={closeDrawer}
+            withCloseButton={false}
+            className={classes.hej}
+          >
             {!isDesktop && <NavbarSimple />}
           </Drawer>
         </Container>

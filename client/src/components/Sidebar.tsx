@@ -4,7 +4,7 @@ import {
   createStyles,
   Flex,
   getStylesRef,
-  Navbar
+  Navbar,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
@@ -45,18 +45,16 @@ const useStyles = createStyles((theme) => ({
       overflowY: "auto",
     },
   },
-  grow: {
-
-  },
+  grow: {},
 
   footer: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
-    padding:  theme.spacing.sm,
+    padding: theme.spacing.sm,
     [theme.fn.largerThan("md")]: {
       position: "absolute",
-      bottom: theme.spacing.md, // Add bottom value to position the button
+      bottom: theme.spacing.md,
     },
   },
   footer1: {
@@ -68,8 +66,7 @@ const useStyles = createStyles((theme) => ({
 
     [theme.fn.largerThan("md")]: {
       position: "absolute",
-      width: "100%", // Set width to 100% for centering the content
-
+      width: "100%",
     },
   },
 
@@ -206,13 +203,10 @@ const useStyles = createStyles((theme) => ({
       transform: "scale(0.95)",
     },
   },
-  hey: {
-    
-  }
+  hey: {},
 }));
 
 export function NavbarSimple() {
- 
   const { classes } = useStyles();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [inputRoom, setInputRoom] = useState("");
@@ -220,7 +214,6 @@ export function NavbarSimple() {
   const { joinRoom, roomList } = useSocket();
 
   const { name } = useName();
-
 
   const JoinRoomContainer = {
     display: "flex",
@@ -238,7 +231,6 @@ export function NavbarSimple() {
     padding: "1rem",
     backgroundColor: "white",
     flex: 1,
-
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -254,9 +246,24 @@ export function NavbarSimple() {
   return (
     <div>
       {!isDesktop && (
-        <Box h={"100vh"}  mx="-md" my="-md" p="md" pt={70} display={"flex"} bg={"#ff912b"}>
+        <Box
+          h={"100vh"}
+          mx="-md"
+          my="-md"
+          p="md"
+          pt={70}
+          display={"flex"}
+          bg={"#ff912b"}
+        >
           <Box className={classes.linksContainer1}>
-            <Flex direction="column" gap="sm" mt="1rem" bg={"#ff912b"} h={"90%"} w={"100%"}>
+            <Flex
+              direction="column"
+              gap="sm"
+              mt="1rem"
+              bg={"#ff912b"}
+              h={"90%"}
+              w={"100%"}
+            >
               {roomList.map((room, index) => (
                 <RoomListButton
                   key={index}
@@ -265,21 +272,21 @@ export function NavbarSimple() {
                 />
               ))}
             </Flex>
-            <Box className={classes.footer1}bg={"#ff912b"} >
-            <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
-              <input
-                style={InputBox}
-                name="Room"
-                placeholder="Enter room name"
-                type="text"
-                value={inputRoom}
-                onChange={(e) => setInputRoom(e.target.value)}
-              />
-              <Button className={classes.joinButton} type="submit">
-                Join
-              </Button>
-            </form>
-          </Box>
+            <Box className={classes.footer1} bg={"#ff912b"}>
+              <form style={CreateNewRoomForm} onSubmit={handleSubmit}>
+                <input
+                  style={InputBox}
+                  name="Room"
+                  placeholder="Enter room name"
+                  type="text"
+                  value={inputRoom}
+                  onChange={(e) => setInputRoom(e.target.value)}
+                />
+                <Button className={classes.joinButton} type="submit">
+                  Join
+                </Button>
+              </form>
+            </Box>
           </Box>
         </Box>
       )}

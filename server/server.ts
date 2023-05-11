@@ -1,5 +1,10 @@
-import { Server } from 'socket.io';
-import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from './communication';
+import { Server } from "socket.io";
+import {
+  ClientToServerEvents,
+  InterServerEvents,
+  ServerToClientEvents,
+  SocketData
+} from "./communication";
 
 const io = new Server<
   ClientToServerEvents,
@@ -8,44 +13,38 @@ const io = new Server<
   SocketData
 >();
 
-io.on('connection', (socket) => {
-  console.log('a user connected', socket.id);
+io.on("connection", (socket) => {
+  console.log("a user connected", socket.id);
 
-  socket.on('message', (room, message) => {
-    io.to(room).emit('message', socket.data.name!, message);
+  socket.on("message", (room, message) => {
+    io.to(room).emit("message", socket.data.name!, message);
     console.log(room, socket.data.name, message);
   });
 
-  socket.on('join', (room, name, ack) => {
+  socket.on("join", (room, name, ack) => {
     socket.data.name = name;
     socket.join(room);
     ack();
-    // When a user joins a room send an updated
-    // list of rooms to everyone
-    io.emit('rooms', getRooms());
+    io.emit("rooms", getRooms());
   });
 
-  socket.on('typing', (room) => {
+  socket.on("typing", (room) => {
     if (socket.data.name) {
-      socket.to(room).emit('typing', socket.data.name);
+      socket.to(room).emit("typing", socket.data.name);
     }
   });
 
-  socket.on('stop_typing', (room) => {
+  socket.on("stop_typing", (room) => {
     if (socket.data.name) {
-      socket.to(room).emit('stop_typing', socket.data.name);
+      socket.to(room).emit("stop_typing", socket.data.name);
     }
-    
   });
 
-  // When a new user connects send the list of rooms
-  socket.emit('rooms', getRooms());
+  socket.emit("rooms", getRooms());
 
-  socket.on('leave', (room) => {
+  socket.on("leave", (room) => {
     socket.leave(room);
-    // When a user leaves a room, send an updated
-    // list of rooms to everyone
-    io.emit('rooms', getRooms());
+    io.emit("rooms", getRooms());
   });
 });
 
@@ -69,11 +68,10 @@ export function getRooms() {
   return roomsFound;
 }
 
-
 export function rooms() {
   const roomsFound = getRooms();
-  io.emit('rooms', roomsFound);
+  io.emit("rooms", roomsFound);
 }
 
 io.listen(3000);
-console.log('listening on port 3000');
+console.log("listening on port 3000");

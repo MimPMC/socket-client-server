@@ -1,24 +1,24 @@
-import { Button, TextInput, createStyles } from '@mantine/core';
-import { useState } from 'react';
-import { TbCat, TbHome2 } from 'react-icons/tb';
-import { useNavigate } from 'react-router-dom';
-import { useName } from '../context/NameContext';
-import { useSocket } from '../context/SocketContext';
+import { Button, TextInput, createStyles } from "@mantine/core";
+import { useState } from "react";
+import { TbCat, TbHome2 } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
+import { useName } from "../context/NameContext";
+import { useSocket } from "../context/SocketContext";
 
 export const useStyles = createStyles((theme) => ({
   input: {
     transition: "all 0.3s ease",
 
-    [theme.fn.smallerThan('sm')]: {
-      width:"16rem"
+    [theme.fn.smallerThan("sm")]: {
+      width: "16rem",
     },
   },
   form: {
     display: "flex",
-    justifyContent:"center",
+    justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    gap: ".8rem"
+    gap: ".8rem",
   },
   button1: {
     background: "#54FFF5",
@@ -35,20 +35,16 @@ export const useStyles = createStyles((theme) => ({
       transform: "scale(0.95)",
     },
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan("sm")]: {
       width: "16rem",
     },
   },
-  }));
-
-
-
+}));
 
 function JoinForm() {
   const { classes } = useStyles();
-  const [room, setRoom] = useState('');
+  const [room, setRoom] = useState("");
   const { joinRoom } = useSocket();
-
 
   const navigate = useNavigate();
 
@@ -60,12 +56,11 @@ function JoinForm() {
     navigate("/homepage");
   };
 
-
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
       <TextInput
         icon={<TbCat size="1.4rem" />}
-        w={"20rem"} 
+        w={"20rem"}
         radius="lg"
         name="Name"
         placeholder="Name"
@@ -76,7 +71,7 @@ function JoinForm() {
       />
       <TextInput
         icon={<TbHome2 size="1.4rem" />}
-        w={"20rem"} 
+        w={"20rem"}
         radius="lg"
         name="Room"
         placeholder="Room"
@@ -85,8 +80,14 @@ function JoinForm() {
         onChange={(e) => setRoom(e.target.value)}
         className={classes.input}
       />
-      <Button type="submit" radius="xl" size="md" w={"20rem"} className={classes.button1}>
-      Start Chatting!
+      <Button
+        type="submit"
+        radius="xl"
+        size="md"
+        w={"20rem"}
+        className={classes.button1}
+      >
+        Start Chatting!
       </Button>
     </form>
   );

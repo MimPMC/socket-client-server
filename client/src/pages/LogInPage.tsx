@@ -4,7 +4,7 @@ import {
   createStyles,
   Flex,
   Image,
-  Title
+  Title,
 } from "@mantine/core";
 import JoinForm from "../Components/JoinForm";
 
@@ -43,8 +43,6 @@ const useStyles = createStyles((theme) => ({
 
 export function LogInPage() {
   const { classes } = useStyles();
-  
-  
 
   return (
     <Box w={"100%"} bg={"#FD7E14"} h={"100svh"}>
@@ -62,11 +60,9 @@ export function LogInPage() {
           </Title>
         </Flex>
         <Flex direction="column" align={"center"} gap={20}>
-        <JoinForm />
+          <JoinForm />
         </Flex>
       </Container>
     </Box>
   );
 }
-
-/* <Box className={classes.circle} bg={"#ffd0a9"}></Box>*/
