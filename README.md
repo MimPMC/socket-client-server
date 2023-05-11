@@ -1,6 +1,6 @@
 # Cat Chat
 
-# About
+## About
 This is a chat app built with React, TypeScript, Mantine UI, Socket.IO and Vite.
 
 ## Installation
