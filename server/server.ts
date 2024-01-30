@@ -1,79 +1,82 @@
 import { Server } from 'socket.io';
-import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from './communication';
 
-const io = new Server<
-  ClientToServerEvents,
-  ServerToClientEvents,
-  InterServerEvents,
-  SocketData
->();
+// Initialize Socket.IO server
+const io = new Server();
 
+// Define interfaces for orders
+interface WooCommerceOrder {
+  id: number;
+  // Add other properties as needed
+}
+
+interface FortnoxOrder {
+  id: number;
+  // Add other properties as needed
+}
+
+// WooCommerce and Fortnox API keys
+const wooCommerceApiKey = 'YOUR_WOOCOMMERCE_API_KEY';
+const fortnoxAccessToken = 'YOUR_FORTNOX_ACCESS_TOKEN';
+const fortnoxClientSecret = 'YOUR_FORTNOX_CLIENT_SECRET';
+
+// WooCommerce and Fortnox URLs
+const wooCommerceUrl = 'YOUR_WOOCOMMERCE_URL';
+
+// Event handler for new connections
 io.on('connection', (socket) => {
   console.log('a user connected', socket.id);
 
-  socket.on('message', (room, message) => {
-    io.to(room).emit('message', socket.data.name!, message);
-    console.log(room, socket.data.name, message);
-  });
+  // Event handler for fetching and sending orders to Fortnox
+  socket.on('fetchAndSendOrders', async () => {
+    try {
+      // Fetch orders from WooCommerce
+      const orders = await fetchOrdersFromWooCommerce(wooCommerceUrl, wooCommerceApiKey);
 
-  socket.on('join', (room, name, ack) => {
-    socket.data.name = name;
-    socket.join(room);
-    ack();
-    // When a user joins a room send an updated
-    // list of rooms to everyone
-    io.emit('rooms', getRooms());
-  });
+      if (orders) {
+        // Send orders to Fortnox
+        await sendOrdersToFortnox(orders, fortnoxAccessToken, fortnoxClientSecret);
 
-  socket.on('typing', (room) => {
-    if (socket.data.name) {
-      socket.to(room).emit('typing', socket.data.name);
+        // Emit success event to client
+        socket.emit('ordersSent', orders.length);
+      } else {
+        throw new Error('No orders fetched');
+      }
+    } catch (error) {
+      // Emit error event to client
+      socket.emit('orderSendError', error.message);
     }
   });
 
-  socket.on('stop_typing', (room) => {
-    if (socket.data.name) {
-      socket.to(room).emit('stop_typing', socket.data.name);
-    }
-    
-  });
-
-  // When a new user connects send the list of rooms
-  socket.emit('rooms', getRooms());
-
-  socket.on('leave', (room) => {
-    socket.leave(room);
-    // When a user leaves a room, send an updated
-    // list of rooms to everyone
-    io.emit('rooms', getRooms());
-  });
+  // Other event handlers (e.g., messages, joining/leaving rooms)...
 });
 
-export function getRooms() {
-  const { rooms, sids } = io.sockets.adapter;
-  const roomsFound: { name: string; users: string[] }[] = [];
-
-  for (const [name, setOfSocketIds] of rooms) {
-    if (!sids.has(name)) {
-      const users = Array.from(setOfSocketIds)
-        .map((socketId) => {
-          const socket = io.sockets.sockets.get(socketId);
-          return socket?.data.name;
-        })
-        .filter((name): name is string => Boolean(name));
-
-      roomsFound.push({ name, users });
+// Function to fetch orders from WooCommerce
+async function fetchOrdersFromWooCommerce(url: string, apiKey: string): Promise<WooCommerceOrder[]> {
+  // Implement logic to fetch orders from WooCommerce using the provided URL and API key
+  // Example:
+  try {
+    const response = await fetch(url + '/orders', {
+      headers: {
+        Authorization: 'Basic ' + btoa(apiKey),
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('Failed to fetch orders from WooCommerce');
     }
+  } catch (error) {
+    console.error('Error fetching orders from WooCommerce:', error);
+    throw error;
   }
-
-  return roomsFound;
 }
 
-
-export function rooms() {
-  const roomsFound = getRooms();
-  io.emit('rooms', roomsFound);
+// Function to send orders to Fortnox
+async function sendOrdersToFortnox(orders: WooCommerceOrder[], accessToken: string, clientSecret: string) {
+  // Implement logic to send orders to Fortnox using the provided access token and client secret
 }
 
+// Start listening on port 3000
 io.listen(3000);
 console.log('listening on port 3000');
