@@ -1,28 +1,23 @@
 export interface ServerToClientEvents {
-    message: (name: string, message: string) => void;
-    rooms: (rooms: { name: string; users: string[] }[]) => void;
-    typing: (name: string) => void;
-    stop_typing: (name: string) => void;
-  }
-  
-export  interface ClientToServerEvents {
-    message: (room: string, message: string) => void;
-    join:(room: string, name: string, ack: () => void) => void;
-    leave:(room: string) => void;
-    typing: (room: string) => void;
-    stop_typing: (room: string) => void;
-    
-  }
-  
-export  interface InterServerEvents {
-    ping: () => void;
-  }
-  
- export interface SocketData {
-    name: string;
-  }
+  // Event for sending confirmation message to client
+  orderCreated: (orderId: string) => void;
+  customerCreated: (customerId: string) => void;
+  error: (errorMessage: string) => void;
+}
 
-  export interface Message {
-    name: string;
-    message: string;
-  }
+export interface ClientToServerEvents {
+  // Event for sending WooCommerce order data to the server
+  createOrder: (orderData: any) => void;
+  
+  // Event for sending WooCommerce customer data to the server
+  createCustomer: (customerData: any) => void;
+}
+
+export interface InterServerEvents {
+  // Add any additional inter-server events here if needed
+}
+
+export interface SocketData {
+  // You may not need this interface for your specific use case
+  // If you do, adapt it according to your needs
+}
